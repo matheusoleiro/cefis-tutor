@@ -1,0 +1,485 @@
+{
+  "user_id": 947346,
+  "planos": [
+    {
+      "id": "3fe97ca0-6ab1-44f9-a637-ae3a41a5b4b5",
+      "titulo": "Entender sobre direito tributario",
+      "created_at": "26/05/2026 12:56",
+      "onboarding": {
+        "ocupacao": "Estudante de Engenharia",
+        "experiencia": "Nenhuma — estou começando do zero",
+        "nivel": "Iniciante",
+        "objetivo": "Entender sobre direito tributario",
+        "tempo": "10 minutos agora",
+        "estilo": "Visual"
+      },
+      "plano": {
+        "diagnostico": {
+          "ja_sabe": "Matheus é estudante de Engenharia, sem nenhum contato prévio com Direito Tributário. Possui raciocínio lógico e analítico desenvolvido pelo curso, o que favorece a compreensão de hierarquias, sistemas e estruturas normativas. Ainda não possui vocabulário jurídico-tributário nem familiaridade com conceitos como tributo, sujeito ativo/passivo, fato gerador ou obrigação tributária.",
+          "gaps_criticos": [
+            "Desconhecimento completo do conceito de tributo e suas espécies",
+            "Ausência de compreensão sobre o que é o Direito Tributário e sua função no sistema jurídico",
+            "Falta de noção sobre a relação jurídica entre Estado (sujeito ativo) e contribuinte (sujeito passivo)",
+            "Desconhecimento sobre o Sistema Tributário Nacional e a hierarquia das normas tributárias"
+          ],
+          "gaps_complementares": [
+            "Falta de familiaridade com princípios tributários constitucionais",
+            "Desconhecimento sobre os regimes de tributação (Simples, Lucro Presumido, Lucro Real)",
+            "Ausência de conhecimento sobre obrigação tributária principal e acessória",
+            "Falta de compreensão sobre métodos de interpretação da legislação tributária"
+          ]
+        },
+        "fases": [
+          {
+            "numero": 1,
+            "titulo": "Base Zero: O que é Direito Tributário?",
+            "objetivo": "Compreender o conceito, a função e a estrutura do Direito Tributário, entendendo quem são os personagens dessa relação jurídica e como o sistema tributário nacional está organizado.",
+            "duracao": "2 semanas",
+            "modulos": [
+              {
+                "titulo": "O que é Direito Tributário e para que serve",
+                "curso_id": "2840",
+                "curso_titulo": "Formação Assistente Fiscal",
+                "tipo": "cefis",
+                "conteudo": "Estudar a aula 'Sistema Tributário Nacional' do curso Formação Assistente Fiscal. Foco em: definição de Direito Tributário como conjunto de normas que regula a arrecadação de tributos, a relação entre sujeito ativo (Estado/órgãos fiscalizadores) e sujeito passivo (contribuinte pessoa física ou jurídica), e o papel dos princípios tributários como limitadores do poder de tributar.",
+                "atividade": "Criar um mapa mental com o tema central 'Direito Tributário' e dois ramos principais: (1) Sujeito Ativo → quem é, o que faz, exemplos de órgãos; (2) Sujeito Passivo → quem é, pessoa física vs. pessoa jurídica, obrigação de pagar. Usar cores diferentes para cada lado da relação e setas indicando o fluxo do tributo."
+              },
+              {
+                "titulo": "A hierarquia das normas tributárias — a Pirâmide de Kelsen",
+                "curso_id": "2840",
+                "curso_titulo": "Formação Assistente Fiscal",
+                "tipo": "cefis",
+                "conteudo": "Estudar a aula 'Hierarquias' do curso Formação Assistente Fiscal e complementar com a aula 'Hierárquias das normas - parte 2' do curso PIS e COFINS (ID 3054). Foco em: entender que as normas tributárias seguem uma hierarquia (Constituição → Lei Complementar → Lei Ordinária → Decretos → Instruções Normativas), que normas inferiores não podem contrariar as superiores, e o papel específico da Lei Complementar no sistema tributário.",
+                "atividade": "Desenhar a Pirâmide de Kelsen adaptada ao Direito Tributário com no mínimo 5 níveis, escrevendo dentro de cada nível o nome da norma, um exemplo real (ex.: Constituição Federal, CTN, Decreto regulamentador) e uma frase curta explicando sua função. Usar gradiente de cores do topo (mais importante) para a base (mais operacional)."
+              },
+              {
+                "titulo": "O que é 'legislação tributária' — alcance e abrangência",
+                "curso_id": "4426",
+                "curso_titulo": "Código de Defesa do Contribuinte",
+                "tipo": "cefis",
+                "conteudo": "Estudar a aula 'Alcance nacional' do curso Código de Defesa do Contribuinte. Foco em: entender que 'legislação tributária' é um gênero amplo que vai além das leis formais, abrangendo decretos, instruções normativas, pareceres, soluções de consulta e comunicados do fisco — conforme o artigo 96 do CTN.",
+                "atividade": "Criar um diagrama de círculos concêntricos (como uma cebola): no centro escrever 'Constituição Federal', e em cada camada externa adicionar uma categoria de norma tributária com um exemplo. Ao lado do diagrama, anotar com uma cor de destaque: 'Legislação Tributária = tudo isso junto'."
+              }
+            ]
+          },
+          {
+            "numero": 2,
+            "titulo": "Os Personagens do Direito Tributário: Obrigação e Responsabilidade",
+            "objetivo": "Entender os conceitos de obrigação tributária, fato gerador, sujeito ativo, sujeito passivo (contribuinte e responsável), e como esses elementos se conectam na prática.",
+            "duracao": "2 semanas",
+            "modulos": [
+              {
+                "titulo": "Sujeito passivo: contribuinte vs. responsável tributário",
+                "curso_id": "2966",
+                "curso_titulo": "Introdução à área fiscal",
+                "tipo": "cefis",
+                "conteudo": "Estudar a aula 'Código Tributário Nacional - Parte 2' do curso Introdução à área fiscal. Foco em: diferenciar o contribuinte (quem tem relação pessoal e direta com o fato gerador) do responsável tributário (quem, mesmo sem realizar o fato gerador, é obrigado por lei a pagar o tributo). Entender o exemplo prático da substituição tributária no ICMS e do tomador de serviço no ISS.",
+                "atividade": "Montar uma tabela visual com duas colunas: 'Contribuinte' e 'Responsável Tributário'. Em cada coluna: definição, quem é na prática, exemplo com ICMS e exemplo com ISS. Usar ícones ou pequenos desenhos para representar cada personagem (fábrica, loja, tomador de serviço)."
+              },
+              {
+                "titulo": "Responsabilidade tributária do sócio e do contador",
+                "curso_id": "4480",
+                "curso_titulo": "Responsabilidade tributária do sócio e do contador",
+                "tipo": "cefis",
+                "conteudo": "Estudar a aula 'Qual o foco do curso?' do curso de Responsabilidade tributária. Foco em: entender que o tributo é devido pela pessoa jurídica (PJ), que o patrimônio da PJ é separado do patrimônio do sócio (PF), mas que essa autonomia patrimonial não é absoluta — havendo fraude ou abuso, pode ocorrer a desconsideração da personalidade jurídica. Referência aos artigos 134 e 135 do CTN.",
+                "atividade": "Criar um diagrama de dois círculos separados: um representando a PJ (empresa) e outro a PF (sócio), com seus respectivos patrimônios. Depois, desenhar uma seta tracejada entre os dois com a legenda 'Desconsideração da personalidade jurídica — quando ocorre?' e listar ao lado as condições (fraude, abuso, excesso de poder)."
+              }
+            ]
+          },
+          {
+            "numero": 3,
+            "titulo": "Interpretando a Lei Tributária e Conhecendo os Regimes",
+            "objetivo": "Compreender como a legislação tributária deve ser interpretada e ter uma visão geral dos principais regimes de tributação das empresas.",
+            "duracao": "2 semanas",
+            "modulos": [
+              {
+                "titulo": "Métodos de interpretação da legislação tributária",
+                "curso_id": "4492",
+                "curso_titulo": "Teoria e Classificação da Interpretação Jurídica",
+                "tipo": "cefis",
+                "conteudo": "Estudar a aula 'Métodos de interpretação' do curso de Teoria e Classificação da Interpretação Jurídica. Foco em: entender os três métodos principais — interpretação restritiva (limita o alcance da norma, usada para cobrar tributos), interpretação extensiva (amplia o alcance, usada em benefício do contribuinte) e analogia (preenche lacunas da lei, mas não pode criar tributos sem lei prévia). Conectar esses métodos ao princípio da legalidade.",
+                "atividade": "Criar um infográfico com três colunas, uma para cada método de interpretação: nome do método, definição em uma frase, quando é usado, exemplo prático e um símbolo visual (ex.: lupa que diminui para restritiva, lupa que amplia para extensiva, ponte conectando dois pontos para analogia)."
+              },
+              {
+                "titulo": "Visão geral dos regimes de tributação: Lucro Presumido",
+                "curso_id": "3929",
+                "curso_titulo": "Formação Analista Fiscal",
+                "tipo": "cefis",
+                "conteudo": "Estudar a aula 'Lucro presumido' do curso Formação Analista Fiscal. Foco em: entender o conceito de Lucro Presumido como regime facultativo onde a lucratividade é estimada por percentuais definidos pela Receita Federal (sem necessidade de comprovar todas as despesas), os tributos envolvidos (IRPJ e CSLL), e o critério de elegibilidade (receita bruta até R$ 78 milhões anuais).",
+                "atividade": "Desenhar um fluxograma de decisão: 'A empresa pode optar pelo Lucro Presumido?' com as perguntas-chave (faturamento anual, vedações legais) e os caminhos 'Sim → Lucro Presumido' e 'Não → Lucro Real obrigatório'. Adicionar uma caixa explicando resumidamente como funciona o cálculo (percentual de presunção → base de cálculo → IRPJ/CSLL)."
+              },
+              {
+                "titulo": "Consolidação: mapa geral do Direito Tributário",
+                "curso_id": null,
+                "curso_titulo": null,
+                "tipo": "ia",
+                "conteudo": "Revisão geral de todos os conceitos estudados nas fases anteriores: Direito Tributário (definição e função), Sistema Tributário Nacional, hierarquia das normas (Pirâmide de Kelsen), sujeito ativo e passivo, fato gerador, obrigação tributária, contribuinte vs. responsável tributário, desconsideração da personalidade jurídica, métodos de interpretação e regimes de tributação. Este módulo é de consolidação e síntese, sem novo conteúdo.",
+                "atividade": "Produzir um grande mapa mental central com o título 'Direito Tributário — Visão Geral' conectando todos os temas estudados. Usar pelo menos 6 ramos principais com sub-ramos, cores distintas por tema e pequenos ícones ilustrativos. O objetivo é que, olhando para esse mapa, seja possível lembrar e explicar cada conceito sem consultar anotações."
+              }
+            ]
+          }
+        ],
+        "cronograma": "Semana 1: Módulo 1 da Fase 1 — O que é Direito Tributário (aula Sistema Tributário Nacional + mapa mental sujeito ativo vs. passivo). Semana 2: Módulos 2 e 3 da Fase 1 — Hierarquia das normas tributárias (Pirâmide de Kelsen + diagrama de círculos concêntricos da legislação tributária). Semana 3: Módulo 1 da Fase 2 — Contribuinte vs. Responsável Tributário (tabela visual comparativa). Semana 4: Módulo 2 da Fase 2 — Responsabilidade do sócio e do contador (diagrama PJ vs. PF e desconsideração da personalidade jurídica). Semana 5: Módulo 1 da Fase 3 — Métodos de interpretação da legislação tributária (infográfico com os 3 métodos). Semana 6: Módulos 2 e 3 da Fase 3 — Lucro Presumido (fluxograma) + Consolidação geral com o grande mapa mental de Direito Tributário.",
+        "resultado_esperado": "Ao final do plano, Matheus será capaz de: explicar o que é Direito Tributário e sua função no sistema jurídico brasileiro; identificar os personagens da relação tributária (sujeito ativo, contribuinte e responsável tributário); compreender a hierarquia das normas tributárias e por que ela importa na prática; entender o conceito de fato gerador e obrigação tributária; distinguir os principais regimes de tributação de empresas (com foco em Lucro Presumido); interpretar uma norma tributária usando os três métodos básicos; e ter uma visão estruturada e visual do Direito Tributário que sirva de base sólida para aprofundamento em áreas fiscais e contábeis."
+      }
+    },
+    {
+      "id": "cd7c188f-d58b-4dda-ae72-de160cb972d5",
+      "titulo": "Concurso fiscal",
+      "created_at": "26/05/2026 13:00",
+      "onboarding": {
+        "ocupacao": "Contador",
+        "experiencia": "Nenhuma — estou começando do zero",
+        "nivel": "Iniciante",
+        "objetivo": "Concurso fiscal",
+        "tempo": "10 minutos agora",
+        "estilo": "Visual"
+      },
+      "plano": {
+        "diagnostico": {
+          "ja_sabe": "Matheus é contador, portanto possui base em contabilidade geral, princípios contábeis (competência x caixa), balanço patrimonial e demonstrações financeiras. Esse conhecimento contábil será um ponto de apoio importante para absorver os conteúdos tributários.",
+          "gaps_criticos": [
+            "Desconhecimento do sistema tributário brasileiro: tributos federais (IRPJ, CSLL, PIS, COFINS, IPI), estaduais (ICMS) e municipais (ISS)",
+            "Ausência de noção sobre regimes de tributação: Simples Nacional, Lucro Presumido e Lucro Real",
+            "Falta de familiaridade com obrigações acessórias fiscais: NFS-e, ECF, eSocial, e-Financeira",
+            "Desconhecimento da Reforma Tributária e seus impactos: IBS, CBS, extinção de PIS/COFINS/IPI/ICMS/ISS"
+          ],
+          "gaps_complementares": [
+            "Planejamento tributário e elisão fiscal",
+            "Tributação de dividendos e distribuição de lucros (Lei 15.270/2025)",
+            "Legislação específica: Instrução Normativa RFB, PERSE, Lucro Presumido com receitas financeiras"
+          ]
+        },
+        "fases": [
+          {
+            "numero": 1,
+            "titulo": "Fundamentos do Sistema Tributário Brasileiro",
+            "objetivo": "Compreender a estrutura do sistema tributário brasileiro, os principais tributos e os regimes de apuração, criando uma base sólida para os estudos fiscais do concurso.",
+            "duracao": "3 semanas",
+            "modulos": [
+              {
+                "titulo": "Introdução ao Sistema Tributário: Tributos e Competências",
+                "curso_id": null,
+                "curso_titulo": null,
+                "tipo": "ia",
+                "conteudo": "Conceito de tributo, espécies tributárias (impostos, taxas, contribuições), competência tributária da União, Estados e Municípios. Mapa completo dos principais tributos: IR, CSLL, PIS, COFINS, IPI (federal), ICMS (estadual), ISS (municipal).",
+                "atividade": "Criar um mapa mental visual com 3 colunas (União / Estados / Municípios) listando os tributos de cada ente, usando cores diferentes para cada esfera. Acrescentar setas indicando quem fiscaliza cada tributo."
+              },
+              {
+                "titulo": "Regimes de Tributação: Simples, Presumido e Real",
+                "curso_id": null,
+                "curso_titulo": null,
+                "tipo": "ia",
+                "conteudo": "Diferenças entre Simples Nacional, Lucro Presumido e Lucro Real: quem pode optar, como se apura o IRPJ e a CSLL em cada regime, vantagens e desvantagens de cada um.",
+                "atividade": "Montar uma tabela comparativa visual com colunas: Simples / Presumido / Real e linhas: Quem pode usar, Base de cálculo, Alíquota IRPJ, Alíquota CSLL, Periodicidade. Colorir cada célula por nível de complexidade (verde = simples, amarelo = médio, vermelho = complexo)."
+              },
+              {
+                "titulo": "Lucro Presumido na Prática: Fundamentos e Receitas Financeiras",
+                "curso_id": 4345,
+                "curso_titulo": "Alterações no Cálculo do Lucro Presumido",
+                "tipo": "cefis",
+                "conteudo": "Fundamento legal do Lucro Presumido, percentuais de presunção por atividade, base de cálculo do IRPJ e CSLL. Tributação das receitas financeiras no regime de caixa x competência, regra do come-cotas em fundos de investimento.",
+                "atividade": "Desenhar um fluxograma visual do caminho da receita bruta até o imposto devido no Lucro Presumido: Receita → Percentual de Presunção → Base de Cálculo → Alíquota → IRPJ devido. Incluir uma caixa separada destacando a regra especial das receitas financeiras (regime de caixa)."
+              },
+              {
+                "titulo": "Lucro Presumido: Tributação de Receitas Financeiras em Detalhe",
+                "curso_id": 4408,
+                "curso_titulo": "Lucro presumido",
+                "tipo": "cefis",
+                "conteudo": "Aprofundamento na tributação das receitas financeiras no Lucro Presumido: regime de caixa obrigatório, exceção dos fundos de investimento (come-cotas em maio e novembro), riscos de não conformidade e cruzamento de dados pelo Fisco via e-Financeira.",
+                "atividade": "Criar um diagrama de dois caminhos: Caminho A (regime de competência — ERRADO) x Caminho B (regime de caixa — CORRETO), mostrando visualmente por que o caminho A gera risco fiscal. Incluir ícone de alerta vermelho para o risco de cruzamento de dados pela Receita Federal."
+              }
+            ]
+          },
+          {
+            "numero": 2,
+            "titulo": "Obrigações Acessórias e Documentos Fiscais",
+            "objetivo": "Conhecer as principais obrigações acessórias fiscais exigidas das empresas, entendendo a lógica dos documentos fiscais eletrônicos e das declarações digitais.",
+            "duracao": "2 semanas",
+            "modulos": [
+              {
+                "titulo": "Nota Fiscal de Serviço Eletrônica (NFS-e): Padrão Nacional",
+                "curso_id": 2798,
+                "curso_titulo": "Nota Fiscal de Serviço Eletrônica (NFS-e): Padrão Nacional e emissão simplificada",
+                "tipo": "cefis",
+                "conteudo": "O que é a NFS-e padrão nacional, quem deve emitir, como funciona a emissão simplificada, impacto para prestadores de serviço e para o ISS municipal.",
+                "atividade": "Desenhar o ciclo de vida de uma NFS-e em formato de infográfico: Prestador emite → Sistema valida → Tomador recebe → ISS é retido ou recolhido → Informação vai para o Município. Usar ícones para cada etapa."
+              },
+              {
+                "titulo": "Formação Fiscal: Códigos Tributários e Classificações",
+                "curso_id": 2840,
+                "curso_titulo": "Formação Assistente Fiscal",
+                "tipo": "cefis",
+                "conteudo": "Códigos tributários utilizados na rotina fiscal: códigos de receita, códigos de tributos, FPAS e sua relação com o CNAE da empresa, base para preenchimento de guias e declarações.",
+                "atividade": "Criar um cartão de referência rápida (flashcard visual) com os principais códigos estudados: código do tributo, nome, quem recolhe e periodicidade. Usar uma cor diferente para cada tributo."
+              },
+              {
+                "titulo": "eSocial: Lotações Tributárias e Previdência",
+                "curso_id": 2939,
+                "curso_titulo": "eSocial: aprendendo e descomplicando na prática",
+                "tipo": "cefis",
+                "conteudo": "Tabela de lotações tributárias no eSocial (S-2020), conceito de FPAS, relação FPAS x CNAE, entidades do Sistema S e seus percentuais, como enviar as informações no sistema.",
+                "atividade": "Montar uma tabela visual com as entidades do Sistema S para o FPAS 515 (empresas comerciais): SESC, SENAC, SEBRAE, INCRA, Salário Educação — com percentual de cada uma e total. Usar uma barra de progresso visual mostrando que a soma chega a 5,8% sobre a folha."
+              },
+              {
+                "titulo": "ECF 2025: Escrituração Contábil Fiscal no Lucro Real",
+                "curso_id": 3848,
+                "curso_titulo": "ECF 2025",
+                "tipo": "cefis",
+                "conteudo": "O que é a ECF (Escrituração Contábil Fiscal), sua obrigatoriedade no Lucro Real, principais blocos da declaração, tratamento de provisões, perdas estimadas, dividendos e investimentos avaliados pelo MEP (Método de Equivalência Patrimonial).",
+                "atividade": "Criar um organograma visual da estrutura da ECF com blocos principais destacados: Bloco 0 (identificação), Bloco M300 (ajustes do LALUR), Bloco P (CSLL), Bloco X (informações econômicas). Destacar o M300 com uma cor especial e listar os principais ajustes dentro dele."
+              }
+            ]
+          },
+          {
+            "numero": 3,
+            "titulo": "Tributos sobre o Faturamento: PIS, COFINS e ICMS",
+            "objetivo": "Dominar a lógica de apuração do PIS e COFINS (cumulativo e não cumulativo), entender as exclusões de base de cálculo e a relação com o ICMS, temas recorrentes em concursos fiscais.",
+            "duracao": "2 semanas",
+            "modulos": [
+              {
+                "titulo": "PIS e COFINS: Regimes Cumulativo e Não Cumulativo",
+                "curso_id": null,
+                "curso_titulo": null,
+                "tipo": "ia",
+                "conteudo": "Conceito de PIS e COFINS, diferença entre regime cumulativo (alíquotas 0,65% e 3%) e não cumulativo (1,65% e 7,6%), quais empresas se enquadram em cada regime, conceito de crédito de PIS/COFINS no regime não cumulativo.",
+                "atividade": "Desenhar um diagrama lado a lado: CUMULATIVO x NÃO CUMULATIVO. Para cada lado: quem usa, alíquota, tem crédito? (sim/não), base de cálculo. Usar setas e ícones de empresas para ilustrar qual tipo de empresa usa cada regime."
+              },
+              {
+                "titulo": "Exclusões da Base de Cálculo do PIS/COFINS e o ICMS",
+                "curso_id": 3980,
+                "curso_titulo": "IN RFB MUDANÇAS NA APURAÇÃO DO PIS - COFINS",
+                "tipo": "cefis",
+                "conteudo": "Exclusões permitidas na base de cálculo do PIS e COFINS: ICMS destacado em nota fiscal (Tese do Século — STF RE 574.706), devoluções, cancelamentos. Impacto das mudanças trazidas pela IN RFB na apuração prática.",
+                "atividade": "Criar um infográfico da Tese do Século: mostrar visualmente como o ICMS entra na nota fiscal mas NÃO compõe a receita bruta para fins de PIS/COFINS. Usar um exemplo numérico simples: Venda R$1.000 → ICMS 18% = R$180 → Base PIS/COFINS = R$820. Destacar o impacto financeiro."
+              }
+            ]
+          },
+          {
+            "numero": 4,
+            "titulo": "Reforma Tributária: O Novo Sistema Fiscal Brasileiro",
+            "objetivo": "Compreender a estrutura da Reforma Tributária aprovada, os novos tributos (IBS, CBS, IS), o cronograma de transição e os impactos práticos para empresas e contribuintes.",
+            "duracao": "3 semanas",
+            "modulos": [
+              {
+                "titulo": "Visão Geral da Reforma Tributária: Estrutura e Novos Tributos",
+                "curso_id": 2974,
+                "curso_titulo": "Reforma Tributária: texto final",
+                "tipo": "cefis",
+                "conteudo": "Estrutura geral da Reforma Tributária: extinção de PIS, COFINS, IPI, ICMS e ISS; criação da CBS (federal), IBS (estadual/municipal) e IS (Imposto Seletivo); princípio do destino; papel do Comitê Gestor do IBS; fundos estaduais de equilíbrio fiscal; motivações políticas da reforma.",
+                "atividade": "Montar um mapa visual de transição ANTES x DEPOIS da Reforma: lado esquerdo lista PIS, COFINS, IPI, ICMS, ISS com seus entes e alíquotas atuais. Lado direito lista CBS, IBS, IS. Usar setas indicando qual tributo antigo é substituído por qual tributo novo."
+              },
+              {
+                "titulo": "Cronograma da Transição: 2026 a 2033",
+                "curso_id": 4033,
+                "curso_titulo": "Reforma tributária: Atividades imobiliárias",
+                "tipo": "cefis",
+                "conteudo": "Detalhamento do cronograma de transição da Reforma Tributária: 2026 (ano teste — 0,1% IBS + 0,9% CBS nos documentos fiscais), 2027 (início CBS, fim PIS/COFINS, zeragem IPI), 2029 a 2032 (transição gradual ICMS/ISS para IBS: 10%, 20%, 30%, 40%), 2033 (reforma concluída).",
+                "atividade": "Criar uma linha do tempo visual horizontal de 2026 a 2033, com marcadores coloridos para cada ano e o que muda em cada etapa. Usar ícones: termômetro subindo para IBS (crescendo), termômetro descendo para ICMS/ISS (diminuindo). Destacar 2033 como ponto de chegada com uma estrela."
+              },
+              {
+                "titulo": "Planejamento Tributário na Reforma: Cenários e Riscos",
+                "curso_id": 4363,
+                "curso_titulo": "Planejamento Tributário com a Reforma Tributária",
+                "tipo": "cefis",
+                "conteudo": "Conceito de planejamento tributário lícito (elisão fiscal), diferença de evasão fiscal, simulação de cenários tributários, uso de premissas de alíquota CBS (8,4% a 9%), propósito negocial e substância econômica, papel do profissional tributário na tomada de decisão empresarial.",
+                "atividade": "Desenhar o diagrama dos dois caminhos mencionado na aula: Caminho 1 (maior segurança, menor economia) x Caminho 2 (maior economia, maior risco). Adicionar uma terceira via central: Planejamento Tributário Lícito (segurança + economia dentro da lei). Usar semáforo: verde para lícito, amarelo para zona cinzenta, vermelho para ilícito."
+              },
+              {
+                "titulo": "Tributação de Dividendos e Altas Rendas: Lei 15.270/2025",
+                "curso_id": 4410,
+                "curso_titulo": "Tributação de Dividendos e altas rendas",
+                "tipo": "cefis",
+                "conteudo": "Histórico da isenção de dividendos no Brasil, fim da isenção plena a partir de 01/01/2026 pela Lei 15.270/2025, novas regras de tributação na distribuição de lucros e dividendos para sócios, impacto no planejamento societário e tributário das empresas.",
+                "atividade": "Criar um infográfico comparativo ANTES x DEPOIS da Lei 15.270/2025: linha do tempo mostrando isenção total (histórico) → nova tributação (2026). Incluir um fluxo visual: Lucro da empresa → Distribuição aos sócios → Incidência do IR (nova regra). Destacar em vermelho o que mudou."
+              },
+              {
+                "titulo": "PERSE e Benefícios Fiscais: Disputas Judiciais e Extinção Antecipada",
+                "curso_id": 4027,
+                "curso_titulo": "Perse",
+                "tipo": "cefis",
+                "conteudo": "O que é o PERSE (Programa Emergencial do Setor de Eventos), benefícios fiscais concedidos, disputas judiciais sobre a extinção antecipada do benefício, impacto da Reforma Tributária na extinção de benefícios fiscais setoriais, lição para o profissional fiscal: planejamento financeiro considerando o teto e o fim de benefícios.",
+                "atividade": "Montar um diagrama de causa e efeito (espinha de peixe) visual: no centro 'Fim Antecipado do PERSE'; nas espinhas: Reforma Tributária, Decisão Judicial, Pressão Fiscal, Falta de Planejamento Financeiro. Adicionar um quadro de lição aprendida: o que o profissional deve fazer preventivamente quando um cliente tem benefício fiscal."
+              }
+            ]
+          },
+          {
+            "numero": 5,
+            "titulo": "Revisão Integrada e Preparação para Provas",
+            "objetivo": "Consolidar todo o conhecimento adquirido, revisar os pontos críticos para concurso fiscal, treinar questões e simular a aplicação prática dos conteúdos.",
+            "duracao": "2 semanas",
+            "modulos": [
+              {
+                "titulo": "Revisão Visual Integrada: Mapa Geral do Sistema Tributário",
+                "curso_id": null,
+                "curso_titulo": null,
+                "tipo": "ia",
+                "conteudo": "Revisão de todos os tributos estudados, regimes de apuração, obrigações acessórias, Reforma Tributária e planejamento tributário. Conexões entre os temas para visão sistêmica.",
+                "atividade": "Criar o Grande Mapa Mental Final: um mapa central com 'Sistema Tributário Brasileiro' e 6 ramificações principais: (1) Tributos Federais, (2) Tributos Estaduais/Municipais, (3) Regimes de Tributação, (4) Obrigações Acessórias, (5) Reforma Tributária, (6) Planejamento Tributário. Cada ramificação deve ter sub-ramos com os conceitos-chave de cada fase estudada. Usar cores diferentes para cada ramificação."
+              },
+              {
+                "titulo": "Simulado e Resolução de Questões de Concurso Fiscal",
+                "curso_id": null,
+                "curso_titulo": null,
+                "tipo": "ia",
+                "conteudo": "Resolução de questões de concursos fiscais anteriores (SEFAZ, Receita Federal, Auditores Municipais) abrangendo todos os temas estudados: sistema tributário, PIS/COFINS, ICMS, regimes de tributação, obrigações acessórias e Reforma Tributária.",
+                "atividade": "Após resolver cada bloco de questões, montar um gráfico de desempenho visual por tema (estilo pizza ou barras): % de acerto em cada área. Identificar visualmente os temas com menor % de acerto e criar um plano de revisão direcionado, priorizando as áreas vermelhas (abaixo de 60%) antes da prova."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "b24471bb-1300-42e7-9341-801846e7fd91",
+      "titulo": "Comunicacao pessoal",
+      "created_at": "26/05/2026 13:06",
+      "onboarding": {
+        "ocupacao": "Contador",
+        "experiencia": "Nenhuma — estou começando do zero",
+        "nivel": "Iniciante",
+        "objetivo": "Comunicacao pessoal",
+        "tempo": "10 minutos agora",
+        "estilo": "Visual"
+      },
+      "plano": {
+        "diagnostico": {
+          "ja_sabe": "Matheus é contador, portanto já possui habilidades de organização lógica, atenção a detalhes e comunicação técnica escrita no contexto contábil. Provavelmente já utiliza e-mail e ferramentas digitais no dia a dia profissional.",
+          "gaps_criticos": [
+            "Desconhece os fundamentos da comunicação pessoal e interpessoal (verbal e não verbal)",
+            "Não possui base sobre como estruturar mensagens de forma clara, empática e assertiva em contextos cotidianos e profissionais"
+          ],
+          "gaps_complementares": [
+            "Falta de repertório sobre comunicação não verbal: postura, expressões faciais e linguagem corporal",
+            "Pouca consciência sobre imagem profissional virtual e boas práticas em ambientes digitais",
+            "Ausência de técnicas para lidar com mensagens difíceis ou situações de conflito na comunicação"
+          ]
+        },
+        "fases": [
+          {
+            "numero": 1,
+            "titulo": "Fundamentos da Comunicação Pessoal",
+            "objetivo": "Compreender o que é comunicação, seus pilares essenciais e por que ela impacta diretamente os relacionamentos e resultados pessoais e profissionais",
+            "duracao": "1 semana",
+            "modulos": [
+              {
+                "titulo": "O que é comunicar de verdade: falar x comunicar",
+                "curso_id": "4024",
+                "curso_titulo": "Comunicação Verbal e Não verbal",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Falar X Comunicar': entender a diferença entre simplesmente falar e de fato comunicar. Pilares da comunicação: clareza, adequação, coerência e escuta ativa. Como adaptar a mensagem ao interlocutor.",
+                "atividade": "Desenhe um mapa mental visual com os 4 pilares da comunicação (Clareza, Adequação, Coerência, Escutativa) no centro e, em cada ramo, escreva um exemplo prático do seu dia a dia como contador. Use cores diferentes para cada pilar."
+              },
+              {
+                "titulo": "Por que a comunicação importa: eficiência, empatia e impacto",
+                "curso_id": "4556",
+                "curso_titulo": "Comunicação Corporativa",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Porque falar sobre comunicação - Parte 2': reflexão sobre o impacto de cada palavra, a responsabilidade do emissor, a importância da empatia e da postura ao se comunicar.",
+                "atividade": "Crie um diagrama visual com dois personagens (emissor e receptor) e ilustre com setas e ícones os elementos que podem travar ou facilitar a comunicação entre eles (ex: tom de voz, postura, clareza, empatia)."
+              },
+              {
+                "titulo": "Passo a passo para uma comunicação efetiva",
+                "curso_id": "4024",
+                "curso_titulo": "Comunicação Verbal e Não verbal",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Passos da Comunicação': o processo de comunicação em etapas — observação, escuta ativa, troca de informações. Diferença entre forma (como comunico) e conteúdo (o que comunico). Comunicação escrita eficiente.",
+                "atividade": "Monte um fluxograma visual com as etapas da comunicação efetiva: Observar → Escutar → Organizar → Falar. Em cada etapa, adicione um ícone e uma dica prática curta com base no que aprendeu na aula."
+              }
+            ]
+          },
+          {
+            "numero": 2,
+            "titulo": "Comunicação Não Verbal e Presença Pessoal",
+            "objetivo": "Reconhecer como o corpo, as expressões e a postura comunicam tanto quanto as palavras, e desenvolver consciência sobre a própria linguagem não verbal",
+            "duracao": "1 semana",
+            "modulos": [
+              {
+                "titulo": "O que seu corpo diz sem você perceber",
+                "curso_id": "4556",
+                "curso_titulo": "Comunicação Corporativa",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Comunicação não verbal': expressões faciais, postura corporal, gestos, contato visual, distância entre pessoas. Como esses elementos reforçam ou contradizem a mensagem falada. Impacto no ambiente corporativo.",
+                "atividade": "Crie um infográfico visual do 'Corpo que Fala': desenhe uma silhueta humana e marque em cada parte do corpo (rosto, olhos, braços, postura, pés) o que cada posição ou expressão comunica. Use cores: verde para sinais positivos e vermelho para sinais de alerta."
+              },
+              {
+                "titulo": "Imagem profissional no mundo digital",
+                "curso_id": "4556",
+                "curso_titulo": "Comunicação Corporativa",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Comunicação virtual e imagem profissional': boas práticas em e-mails, chats corporativos e reuniões online. Clareza na escrita digital, uso adequado da linguagem, respostas dentro do prazo, câmera e microfone em reuniões, foto de perfil profissional.",
+                "atividade": "Monte um checklist visual em formato de quadro (estilo kanban) com três colunas: 'Sempre Fazer', 'Nunca Fazer' e 'Depende do Contexto'. Preencha com pelo menos 3 práticas em cada coluna baseadas na aula."
+              }
+            ]
+          },
+          {
+            "numero": 3,
+            "titulo": "Comunicação Corporativa: Estrutura e Responsabilidade",
+            "objetivo": "Aprender a estruturar mensagens claras, assumir responsabilidade pelo que comunica e aplicar boas práticas na comunicação escrita e verbal no ambiente de trabalho",
+            "duracao": "1 semana",
+            "modulos": [
+              {
+                "titulo": "O que é comunicação corporativa e por que ela vai além das palavras",
+                "curso_id": "4556",
+                "curso_titulo": "Comunicação Corporativa",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Introdução a Comunicação Corporativa': conceito de comunicação corporativa, stakeholders, linguagem verbal, escrita, não verbal e digital. Importância do 'óbvio que precisa ser dito': cortesia, saudação, respeito no dia a dia.",
+                "atividade": "Crie um mapa mental com 'Comunicação Corporativa' no centro. Nos ramos, adicione: tipos de comunicação (verbal, escrita, não verbal, digital), exemplos do dia a dia de um contador e um exemplo de falha de comunicação que já aconteceu ou poderia acontecer na sua rotina."
+              },
+              {
+                "titulo": "Estruturando mensagens com clareza e objetivo",
+                "curso_id": "4556",
+                "curso_titulo": "Comunicação Corporativa",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Estruturando mensagens corporativas': modelo básico de qualquer comunicação (contexto, objetivo, informação principal, encaminhamento). Estrutura de e-mail profissional: assunto claro, texto objetivo, contexto breve, encerramento cordial.",
+                "atividade": "Desenhe um template visual de e-mail profissional com 4 blocos coloridos: Bloco 1 (azul) = Assunto, Bloco 2 (verde) = Contexto, Bloco 3 (amarelo) = Pedido/Objetivo, Bloco 4 (laranja) = Encerramento. Escreva um exemplo real dentro de cada bloco usando uma situação do seu trabalho como contador."
+              },
+              {
+                "titulo": "Responsabilidade na comunicação: pensar antes de falar",
+                "curso_id": "4556",
+                "curso_titulo": "Comunicação Corporativa",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Resumo do módulo 2': a tríade 'Isso é necessário? É verdadeiro? Está claro?'. Como evitar impulsividade, confirmar informações, ajustar tom, assumir o que foi dito. Impacto da falta de responsabilidade: ruídos, conflitos e perda de credibilidade.",
+                "atividade": "Crie um diagrama visual de 3 perguntas-filtro antes de comunicar: '✔ É necessário?', '✔ É verdadeiro?', '✔ Está claro?'. Abaixo de cada pergunta, adicione uma situação do dia a dia contábil onde esse filtro poderia evitar um problema."
+              }
+            ]
+          },
+          {
+            "numero": 4,
+            "titulo": "Comunicação Assertiva e Mensagens Difíceis",
+            "objetivo": "Integrar todos os aprendizados e desenvolver a capacidade de se comunicar com assertividade, inclusive em situações sensíveis ou de conflito",
+            "duracao": "1 semana",
+            "modulos": [
+              {
+                "titulo": "Como escrever e falar em situações difíceis com equilíbrio",
+                "curso_id": "4556",
+                "curso_titulo": "Comunicação Corporativa",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Como escrever mensagens difíceis no ambiente corporativo': o que são mensagens difíceis, estrutura recomendada (contexto neutro, mensagem principal, justificativa, encaminhamento), boas práticas (tom neutro, foco em fatos, clareza sem rudeza, oferecer alternativas) e exemplos práticos.",
+                "atividade": "Monte um quadro visual comparativo com duas colunas: 'Sem Estrutura' x 'Com Estrutura'. Use 3 situações difíceis do contexto de um contador (ex: cobrar um cliente, recusar uma demanda, apontar um erro) e reescreva cada mensagem de forma estruturada e profissional."
+              },
+              {
+                "titulo": "Comunicação Assertiva: a síntese de tudo",
+                "curso_id": "4556",
+                "curso_titulo": "Comunicação Corporativa",
+                "tipo": "cefis",
+                "conteudo": "Aula 'Comunicação assertiva': ponto de equilíbrio entre responsabilidade, empatia, inteligência emocional, comunicação verbal, não verbal e escrita. Como expressar opiniões com respeito: ser claro sem ser agressivo, firme sem desconsiderar o outro.",
+                "atividade": "Desenhe uma 'Roda da Comunicação Assertiva' dividida em 5 fatias: Responsabilidade, Empatia, Comunicação Verbal, Comunicação Não Verbal, Comunicação Escrita. Em cada fatia, escreva 1 ação prática que você vai aplicar no seu dia a dia. Cole ou salve como wallpaper de referência."
+              },
+              {
+                "titulo": "Revisão Visual Geral: consolidando o aprendizado",
+                "curso_id": null,
+                "curso_titulo": null,
+                "tipo": "ia",
+                "conteudo": "Revisão de todos os conceitos estudados nas fases anteriores: pilares da comunicação, linguagem verbal e não verbal, estrutura de mensagens, responsabilidade, assertividade e imagem profissional digital.",
+                "atividade": "Crie um único mapa mental 'Guia Pessoal de Comunicação do Matheus' reunindo todos os módulos estudados. Use um nível central com seu nome, 5 ramos principais (um por tema) e em cada ramo adicione 2 aprendizados concretos que você vai aplicar na vida pessoal e no trabalho."
+              }
+            ]
+          }
+        ],
+        "cronograma": "Semana 1: Fase 1 — Fundamentos da Comunicação Pessoal. Foco em entender o que é comunicar, os pilares essenciais e o passo a passo para uma comunicação efetiva. Atividade: mapa mental dos pilares e fluxograma da comunicação. | Semana 2: Fase 2 — Comunicação Não Verbal e Presença Pessoal. Foco em linguagem corporal, expressões faciais e imagem profissional no ambiente digital. Atividade: infográfico do corpo que fala e checklist de boas práticas digitais. | Semana 3: Fase 3 — Comunicação Corporativa: Estrutura e Responsabilidade. Foco em introdução à comunicação corporativa, estruturação de mensagens e responsabilidade ao comunicar. Atividade: template visual de e-mail e diagrama das 3 perguntas-filtro. | Semana 4: Fase 4 — Comunicação Assertiva e Mensagens Difíceis. Foco em lidar com situações sensíveis, integrar todos os aprendizados e consolidar um estilo de comunicação assertivo e empático. Atividade: quadro comparativo de mensagens e Roda da Comunicação Assertiva.",
+        "resultado_esperado": "Ao final do plano, Matheus será capaz de: compreender os fundamentos da comunicação interpessoal e corporativa; identificar e controlar sua linguagem não verbal em conversas pessoais e profissionais; estruturar mensagens escritas e faladas com clareza, objetividade e empatia; lidar com situações difíceis de comunicação sem agressividade e sem perder a firmeza; manter uma imagem profissional consistente em ambientes presenciais e digitais; e se comunicar de forma assertiva — equilibrando responsabilidade, empatia e clareza — em qualquer contexto pessoal ou profissional."
+      }
+    }
+  ]
+}

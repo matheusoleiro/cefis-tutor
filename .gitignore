@@ -1,5 +1,4 @@
 venv/
-chroma_db/
 output/
 .env
 __pycache__/
