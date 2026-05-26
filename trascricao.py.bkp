@@ -1,0 +1,14 @@
+import json, os
+
+path = "./output"
+subpastas = [f for f in os.listdir(path) if os.path.isdir(f"{path}/{f}")]
+
+# Entra na pasta lessons da primeira subpasta
+lessons_path = f"{path}/{subpastas[0]}/lessons"
+arquivos = os.listdir(lessons_path)
+print(f"Arquivos em lessons: {arquivos}")
+
+# Abre o primeiro
+with open(f"{lessons_path}/{arquivos[0]}", "r") as f:
+    amostra = json.load(f)
+    print(json.dumps(amostra, indent=2, ensure_ascii=False)[:2000])
