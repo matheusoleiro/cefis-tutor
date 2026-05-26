@@ -1395,9 +1395,14 @@ body {
           <label>Sobre qual tema quer a apostila?</label>
           <input type="text" id="apostila-tema" placeholder="Ex: direito tributário, princípios constitucionais...">
         </div>
-        <button class="btn btn-primary" style="max-width:240px;margin-bottom:24px" onclick="gerarConteudo('apostila')">
-          Gerar Apostila
-        </button>
+        <div style="display:flex;gap:12px;margin-bottom:24px">
+          <button class="btn btn-primary" style="max-width:240px" onclick="gerarConteudo('apostila')">
+            Gerar Apostila
+          </button>
+          <button class="btn btn-secondary" style="max-width:240px" onclick="baixarApostilaPDF()">
+            Baixar PDF
+          </button>
+        </div>
         <div id="apostila-result"></div>
       </div>
     </div>
@@ -1439,6 +1444,7 @@ let state = {
 
 let catalogPage = 1
 let searchTimer = null
+let fasesCache = {}
 
 // ══════════════════════════════
 // UTILS
@@ -1640,6 +1646,12 @@ async function loadDashboard() {
             </div>
           </div>
           <div class="plan-actions">
+            <div style="text-align:right;margin-right:8px">
+              <div style="font-size:18px;font-weight:800;color:var(--accent);font-family:var(--font-display)">
+                ${Object.keys(p.progresso_fases || {}).length}/${(p.plano?.fases || []).length}
+              </div>
+              <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px">fases</div>
+            </div>
             <button class="btn btn-secondary btn-sm" onclick="abrirPlano('${p.id}')">Abrir</button>
             <button class="btn btn-danger btn-icon btn-sm" onclick="deletarPlano('${p.id}')">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
@@ -1661,6 +1673,7 @@ async function abrirPlano(id) {
   if (!p) return
   state.planoAtivo = p.plano
   state.onboarding = p.onboarding
+  state.planoAtivoId = id 
   updateSidebar()
   renderPlano()
   showScreen('app')
@@ -1668,6 +1681,8 @@ async function abrirPlano(id) {
   // persiste no localStorage
   localStorage.setItem('planoAtivo', JSON.stringify(p.plano))
   localStorage.setItem('onboardingAtivo', JSON.stringify(p.onboarding))
+  verificarAcompanhamento(id)  // ← adiciona isso
+
 }
 
 async function deletarPlano(id) {
@@ -1719,6 +1734,7 @@ async function doGerarPlano() {
     setProgress(100, ' Plano pronto!')
 
     state.planoAtivo = data.plano
+    state.planoAtivoId = data.plano_id
     state.onboarding = {
       ocupacao,
       experiencia: document.getElementById('ob-experiencia').value,
@@ -1770,6 +1786,7 @@ function renderPlano() {
   const complementares = (diag.gaps_complementares || []).map(g => `<div class="gap-item">${g}</div>`).join('')
 
   const fasesHtml = (plano.fases || []).map(fase => {
+    fasesCache[fase.numero] = fase  // ← adiciona aqui
     const modulos = (fase.modulos || []).map(mod => {
       const tipo = mod.tipo === 'cefis' ? 'CEFIS' : 'IA'
       const tipoClass = mod.tipo === 'cefis' ? 'cefis' : 'ia'
@@ -1811,7 +1828,14 @@ function renderPlano() {
             </svg>
           </div>
         </div>
-        <div class="fase-body">${modulos}</div>
+          <div class="fase-body">
+          ${modulos}
+          <div style="padding:16px 0 4px">
+            <button class="btn btn-secondary btn-sm" onclick="abrirQuizFaseById(${fase.numero})">
+              Fazer quiz desta fase
+            </button>
+          </div>
+        </div>
       </div>`
   }).join('')
 
@@ -1846,6 +1870,53 @@ function renderPlano() {
     ${crono}
     ${resultado}
   `
+}
+
+async function verificarAcompanhamento(planoId) {
+  const plano = state.planoAtivo
+  const ob = state.onboarding
+  if (!plano || !ob) return
+
+  try {
+    const data = await api('/api/acompanhamento', {
+      user_id: state.user.id,
+      plano_id: planoId,
+      user_name: state.user.first_name || state.user.name,
+      objetivo: ob.objetivo,
+      nivel: ob.nivel,
+      fases: plano.fases || []
+    })
+
+    // Injeta banner no topo do plano-body
+    const body = document.getElementById('plano-body')
+    const banner = document.createElement('div')
+    banner.style.cssText = `
+      background: linear-gradient(135deg, rgba(91,110,245,0.15), rgba(139,92,246,0.1));
+      border: 1px solid rgba(91,110,245,0.3);
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      animation: fadeUp 0.4s ease;
+    `
+    banner.innerHTML = `
+      <div style="flex:1">
+        <div style="font-size:13px;color:var(--text-dim);line-height:1.6;margin-bottom:8px">${data.mensagem}</div>
+        <div style="font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.5px">
+          Proximo passo: ${data.proximo_passo}
+        </div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-size:22px;font-weight:800;color:var(--accent)">${data.fases_concluidas}/${data.total_fases}</div>
+        <div style="font-size:11px;color:var(--text-muted)">fases concluidas</div>
+      </div>
+    `
+    body.insertBefore(banner, body.firstChild)
+  } catch(e) {
+    console.error('Acompanhamento:', e)
+  }
 }
 
 function editarNomePlano() {
@@ -1988,6 +2059,234 @@ async function loadCatalog() {
     grid.innerHTML = '<div style="color:var(--danger)">Erro ao carregar cursos.</div>'
   }
 }
+
+// ══════════════════════════════
+// QUIZ POR FASE
+// ══════════════════════════════
+let quizAtual = null
+let quizFaseNumero = null
+let quizRespostas = []
+
+function abrirQuizFaseById(faseNumero) {
+  const fase = fasesCache[faseNumero]
+  if (!fase) return
+  abrirQuizFase(fase.numero, fase.titulo, fase.objetivo || '', fase.modulos || [])
+}
+
+async function abrirQuizFase(faseNumero, faseTitulo, faseObjetivo, modulos) {
+  quizFaseNumero = faseNumero
+  quizRespostas = []
+
+  // Cria modal
+  const modal = document.createElement('div')
+  modal.id = 'quiz-modal'
+  modal.style.cssText = `
+    position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:1000;
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    animation: fadeUp 0.3s ease;
+  `
+  modal.innerHTML = `
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:24px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto;padding:40px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+        <div>
+          <div style="font-family:var(--font-display);font-size:20px;font-weight:700">Quiz — Fase ${faseNumero}</div>
+          <div style="color:var(--text-muted);font-size:13px;margin-top:4px">${faseTitulo}</div>
+        </div>
+        <button onclick="fecharQuiz()" style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text-dim);cursor:pointer">Fechar</button>
+      </div>
+      <div id="quiz-modal-body">
+        <div style="text-align:center;padding:40px;color:var(--text-muted)">
+          Gerando quiz com base no conteudo da fase...
+          <div class="loader" style="margin:16px auto;display:flex;justify-content:center"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+  `
+  document.body.appendChild(modal)
+
+  try {
+    const data = await api('/api/quiz-fase', {
+      fase_titulo: faseTitulo,
+      fase_objetivo: faseObjetivo,
+      modulos: modulos,
+      nivel: state.onboarding?.nivel || 'Intermediário'
+    })
+
+    quizAtual = data.questoes
+    renderQuizModal(0)
+  } catch(e) {
+    document.getElementById('quiz-modal-body').innerHTML =
+      '<div style="color:var(--danger);text-align:center">Erro ao gerar quiz. Tente novamente.</div>'
+  }
+}
+
+function renderQuizModal(idx) {
+  const q = quizAtual[idx]
+  const total = quizAtual.length
+  const body = document.getElementById('quiz-modal-body')
+
+  body.innerHTML = `
+    <div style="margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <span style="font-size:13px;color:var(--text-muted)">Questao ${idx+1} de ${total}</span>
+        <span style="font-size:13px;color:var(--text-muted)">${Math.round(((idx)/total)*100)}% concluido</span>
+      </div>
+      <div style="height:4px;background:var(--surface2);border-radius:2px">
+        <div style="height:100%;width:${Math.round((idx/total)*100)}%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:2px;transition:width 0.3s"></div>
+      </div>
+    </div>
+
+    <div style="font-size:16px;font-weight:600;line-height:1.5;margin-bottom:24px">${q.pergunta}</div>
+
+    <div style="display:flex;flex-direction:column;gap:10px" id="opcoes-container">
+      ${q.opcoes.map((op, i) => `
+        <button onclick="responderQuiz(${idx}, ${i})" style="
+          background:var(--surface2);border:1px solid var(--border);border-radius:12px;
+          padding:14px 18px;text-align:left;color:var(--text);cursor:pointer;font-size:14px;
+          transition:all 0.15s;font-family:var(--font-body);
+        " onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
+          ${op}
+        </button>`).join('')}
+    </div>
+  `
+}
+
+function responderQuiz(idxQuestao, idxResposta) {
+  const q = quizAtual[idxQuestao]
+  const correta = q.correta
+  quizRespostas.push({ correta: idxResposta === correta })
+
+  // Mostra feedback visual
+  const btns = document.querySelectorAll('#opcoes-container button')
+  btns.forEach((btn, i) => {
+    btn.onclick = null
+    btn.style.cursor = 'default'
+    if (i === correta) {
+      btn.style.background = 'rgba(34,197,94,0.15)'
+      btn.style.borderColor = 'rgba(34,197,94,0.5)'
+      btn.style.color = '#86efac'
+    } else if (i === idxResposta && idxResposta !== correta) {
+      btn.style.background = 'rgba(239,68,68,0.15)'
+      btn.style.borderColor = 'rgba(239,68,68,0.5)'
+      btn.style.color = '#fca5a5'
+    }
+  })
+
+  // Mostra explicação
+  const container = document.getElementById('opcoes-container')
+  const exp = document.createElement('div')
+  exp.style.cssText = 'margin-top:16px;padding:14px;background:var(--surface2);border-radius:10px;font-size:13px;color:var(--text-dim);line-height:1.6;border-left:3px solid var(--accent)'
+  exp.textContent = q.explicacao
+  container.appendChild(exp)
+
+  // Botão próxima
+  const nextBtn = document.createElement('button')
+  const isUltima = idxQuestao === quizAtual.length - 1
+  nextBtn.className = 'btn btn-primary'
+  nextBtn.style.cssText = 'margin-top:20px;width:100%'
+  nextBtn.textContent = isUltima ? 'Ver resultado' : 'Proxima questao'
+  nextBtn.onclick = () => {
+    if (isUltima) mostrarResultadoQuiz()
+    else renderQuizModal(idxQuestao + 1)
+  }
+  container.appendChild(nextBtn)
+}
+
+async function mostrarResultadoQuiz() {
+  const acertos = quizRespostas.filter(r => r.correta).length
+  const total = quizRespostas.length
+  const pct = Math.round((acertos / total) * 100)
+  const passou = pct >= 60
+
+  document.getElementById('quiz-modal-body').innerHTML = `
+    <div style="text-align:center;padding:20px 0">
+      <div style="font-size:56px;margin-bottom:16px">${pct >= 80 ? '🏆' : pct >= 60 ? '✅' : '📚'}</div>
+      <div style="font-family:var(--font-display);font-size:28px;font-weight:700;margin-bottom:8px">
+        ${acertos} de ${total} corretas
+      </div>
+      <div style="font-size:48px;font-weight:800;margin:16px 0;
+        background:linear-gradient(135deg,var(--accent),var(--accent2));
+        -webkit-background-clip:text;-webkit-text-fill-color:transparent">
+        ${pct}%
+      </div>
+      <div style="color:${passou ? 'var(--success)' : 'var(--danger)'};font-size:16px;font-weight:600;margin-bottom:24px">
+        ${pct >= 80 ? 'Excelente! Fase dominada.' : pct >= 60 ? 'Bom trabalho! Fase concluida.' : 'Continue estudando esta fase antes de avançar.'}
+      </div>
+      ${passou ? `<button class="btn btn-primary" style="width:100%;margin-bottom:12px" onclick="concluirFase(${pct})">
+        Marcar fase como concluida
+      </button>` : ''}
+      <button class="btn btn-ghost" style="width:100%" onclick="fecharQuiz()">Fechar</button>
+    </div>
+  `
+
+  // Salva progresso se passou
+  if (passou && state.planoAtivoId) {
+    try {
+      const fase = state.planoAtivo.fases[quizFaseNumero - 1]
+      await api('/api/salvar-progresso', {
+        user_id: state.user.id,
+        plano_id: state.planoAtivoId,
+        fase_numero: quizFaseNumero,
+        fase_titulo: fase.titulo,
+        acertos,
+        total
+      })
+    } catch(e) { console.error(e) }
+  }
+}
+
+async function concluirFase(pct) {
+  fecharQuiz()
+  toast(`Fase ${quizFaseNumero} concluida com ${pct}%!`)
+  // Recarrega plano pra atualizar progresso
+  if (state.planoAtivoId) {
+    const data = await api(`/api/planos/${state.user.id}`)
+    const p = data.planos.find(x => x.id === state.planoAtivoId)
+    if (p) {
+      state.planoAtivo = p.plano
+      renderPlano()
+      verificarAcompanhamento(state.planoAtivoId)
+    }
+  }
+}
+
+async function baixarApostilaPDF() {
+  const tema = document.getElementById('apostila-tema').value.trim()
+  const ob = state.onboarding || {}
+  if (!tema) { toast('Informe o tema primeiro', 'error'); return }
+
+  toast('Gerando PDF...')
+
+  try {
+    const response = await fetch('/api/exportar-apostila', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tema,
+        nivel: ob.nivel || 'Intermediário',
+        estilo: ob.estilo || 'Lendo/Escrevendo',
+        tipo: 'apostila'
+      })
+    })
+
+    const blob = await response.blob()
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `apostila-${tema.substring(0,30).replace(/\s+/g,'-')}.pdf`
+    a.click()
+    URL.revokeObjectURL(url)
+    toast('PDF baixado!')
+  } catch(e) {
+    toast('Erro ao gerar PDF', 'error')
+  }
+}
+
+function fecharQuiz() {
+  const modal = document.getElementById('quiz-modal')
+  if (modal) modal.remove()
+}
+
 
 function debounceSearch() {
   clearTimeout(searchTimer)

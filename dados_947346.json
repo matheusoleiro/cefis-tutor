@@ -121,7 +121,14 @@
         ],
         "cronograma": "Semana 1: Módulo 1 da Fase 1 — O que é Direito Tributário (aula Sistema Tributário Nacional + mapa mental sujeito ativo vs. passivo). Semana 2: Módulos 2 e 3 da Fase 1 — Hierarquia das normas tributárias (Pirâmide de Kelsen + diagrama de círculos concêntricos da legislação tributária). Semana 3: Módulo 1 da Fase 2 — Contribuinte vs. Responsável Tributário (tabela visual comparativa). Semana 4: Módulo 2 da Fase 2 — Responsabilidade do sócio e do contador (diagrama PJ vs. PF e desconsideração da personalidade jurídica). Semana 5: Módulo 1 da Fase 3 — Métodos de interpretação da legislação tributária (infográfico com os 3 métodos). Semana 6: Módulos 2 e 3 da Fase 3 — Lucro Presumido (fluxograma) + Consolidação geral com o grande mapa mental de Direito Tributário.",
         "resultado_esperado": "Ao final do plano, Matheus será capaz de: explicar o que é Direito Tributário e sua função no sistema jurídico brasileiro; identificar os personagens da relação tributária (sujeito ativo, contribuinte e responsável tributário); compreender a hierarquia das normas tributárias e por que ela importa na prática; entender o conceito de fato gerador e obrigação tributária; distinguir os principais regimes de tributação de empresas (com foco em Lucro Presumido); interpretar uma norma tributária usando os três métodos básicos; e ter uma visão estruturada e visual do Direito Tributário que sirva de base sólida para aprofundamento em áreas fiscais e contábeis."
-      }
+      },
+      "historico_acesso": [
+        "26/05/2026 14:58",
+        "26/05/2026 14:59",
+        "26/05/2026 15:00",
+        "26/05/2026 15:08",
+        "26/05/2026 15:19"
+      ]
     },
     {
       "id": "b24471bb-1300-42e7-9341-801846e7fd91",
@@ -272,7 +279,10 @@
         ],
         "cronograma": "Semana 1: Fase 1 — Fundamentos da Comunicação Pessoal. Foco em entender o que é comunicar, os pilares essenciais e o passo a passo para uma comunicação efetiva. Atividade: mapa mental dos pilares e fluxograma da comunicação. | Semana 2: Fase 2 — Comunicação Não Verbal e Presença Pessoal. Foco em linguagem corporal, expressões faciais e imagem profissional no ambiente digital. Atividade: infográfico do corpo que fala e checklist de boas práticas digitais. | Semana 3: Fase 3 — Comunicação Corporativa: Estrutura e Responsabilidade. Foco em introdução à comunicação corporativa, estruturação de mensagens e responsabilidade ao comunicar. Atividade: template visual de e-mail e diagrama das 3 perguntas-filtro. | Semana 4: Fase 4 — Comunicação Assertiva e Mensagens Difíceis. Foco em lidar com situações sensíveis, integrar todos os aprendizados e consolidar um estilo de comunicação assertivo e empático. Atividade: quadro comparativo de mensagens e Roda da Comunicação Assertiva.",
         "resultado_esperado": "Ao final do plano, Matheus será capaz de: compreender os fundamentos da comunicação interpessoal e corporativa; identificar e controlar sua linguagem não verbal em conversas pessoais e profissionais; estruturar mensagens escritas e faladas com clareza, objetividade e empatia; lidar com situações difíceis de comunicação sem agressividade e sem perder a firmeza; manter uma imagem profissional consistente em ambientes presenciais e digitais; e se comunicar de forma assertiva — equilibrando responsabilidade, empatia e clareza — em qualquer contexto pessoal ou profissional."
-      }
+      },
+      "historico_acesso": [
+        "26/05/2026 15:17"
+      ]
     }
   ]
 }

@@ -274,3 +274,149 @@ Adapte ao estilo {req.estilo}. Inclua conceitos principais, exemplos e pontos de
     return {"conteudo": response.content[0].text}
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+class AcompanhamentoRequest(BaseModel):
+    user_id: int
+    plano_id: str
+    user_name: str
+    objetivo: str
+    nivel: str
+    fases: list
+
+@app.post("/api/acompanhamento")
+def acompanhamento(req: AcompanhamentoRequest):
+    dados = carregar_planos(req.user_id)
+    plano = next((p for p in dados["planos"] if p["id"] == req.plano_id), None)
+    if not plano:
+        raise HTTPException(status_code=404, detail="Plano não encontrado")
+
+    progresso_fases = plano.get("progresso_fases", {})
+    fases_concluidas = list(progresso_fases.keys())
+    
+    # Acha a próxima fase não concluída
+    todas_fases = req.fases
+    proxima_fase = None
+    for f in todas_fases:
+        if str(f["numero"]) not in fases_concluidas:
+            proxima_fase = f
+            break
+
+    if not proxima_fase:
+        return {
+            "mensagem": f"Parabéns, {req.user_name}! Você concluiu todas as fases do plano.",
+            "proximo_passo": "Plano concluído",
+            "fases_concluidas": len(fases_concluidas),
+            "total_fases": len(todas_fases)
+        }
+
+    # Primeira visita
+    if not plano.get("historico_acesso"):
+        plano["historico_acesso"] = [datetime.now().strftime("%d/%m/%Y %H:%M")]
+        with open(f"./dados_{req.user_id}.json", "w") as f:
+            json.dump(dados, f, ensure_ascii=False, indent=2)
+        return {
+            "mensagem": f"Bem-vindo, {req.user_name}! Seu plano está pronto. Comece pela Fase 1.",
+            "proximo_passo": proxima_fase["titulo"],
+            "fases_concluidas": len(fases_concluidas),
+            "total_fases": len(todas_fases)
+        }
+
+    # Visitas seguintes — mensagem baseada em progresso real
+    pct = round((len(fases_concluidas) / len(todas_fases)) * 100) if todas_fases else 0
+    
+    if len(fases_concluidas) == 0:
+        mensagem = f"Continue firme, {req.user_name}. Faça o quiz da Fase 1 para registrar seu progresso."
+    else:
+        mensagem = f"{len(fases_concluidas)} de {len(todas_fases)} fases concluídas ({pct}%). Próximo passo: {proxima_fase['titulo']}."
+
+    return {
+        "mensagem": mensagem,
+        "proximo_passo": proxima_fase["titulo"],
+        "fases_concluidas": len(fases_concluidas),
+        "total_fases": len(todas_fases)
+    }
+
+class QuizFaseRequest(BaseModel):
+    fase_titulo: str
+    fase_objetivo: str
+    modulos: list
+    nivel: str
+
+class SalvarProgressoRequest(BaseModel):
+    user_id: int
+    plano_id: str
+    fase_numero: int
+    fase_titulo: str
+    acertos: int
+    total: int
+
+@app.post("/api/quiz-fase")
+def quiz_fase(req: QuizFaseRequest):
+    conteudo_fase = "\n".join([
+        f"- {m.get('titulo', '')}: {m.get('conteudo', '')}"
+        for m in req.modulos[:6]
+    ])
+
+    prompt = f"""Crie um quiz de 5 questões sobre a fase de estudos abaixo.
+
+Fase: {req.fase_titulo}
+Objetivo: {req.fase_objetivo}
+Nível: {req.nivel}
+
+Conteúdo estudado:
+{conteudo_fase}
+
+Retorne APENAS JSON válido neste formato:
+{{
+  "questoes": [
+    {{
+      "pergunta": "texto da pergunta",
+      "opcoes": ["A) texto", "B) texto", "C) texto", "D) texto"],
+      "correta": 0,
+      "explicacao": "por que esta é a resposta correta"
+    }}
+  ]
+}}
+
+correta é o índice (0-3) da opção correta."""
+
+    response = client.messages.create(
+        model="claude-sonnet-4-6",
+        max_tokens=2000,
+        messages=[{"role": "user", "content": prompt}]
+    )
+
+    texto = response.content[0].text.strip().replace("```json", "").replace("```", "").strip()
+    try:
+        return json.loads(texto)
+    except:
+        raise HTTPException(status_code=500, detail="Erro ao gerar quiz")
+
+@app.post("/api/salvar-progresso")
+def salvar_progresso(req: SalvarProgressoRequest):
+    dados = carregar_planos(req.user_id)
+    plano = next((p for p in dados["planos"] if p["id"] == req.plano_id), None)
+    if not plano:
+        raise HTTPException(status_code=404, detail="Plano não encontrado")
+
+    if "progresso_fases" not in plano:
+        plano["progresso_fases"] = {}
+
+    plano["progresso_fases"][str(req.fase_numero)] = {
+        "fase_titulo": req.fase_titulo,
+        "acertos": req.acertos,
+        "total": req.total,
+        "percentual": round((req.acertos / req.total) * 100),
+        "concluido_em": datetime.now().strftime("%d/%m/%Y %H:%M")
+    }
+
+    # Calcula progresso geral
+    total_fases = len(plano["plano"].get("fases", []))
+    fases_concluidas = len(plano["progresso_fases"])
+    plano["progresso_geral"] = round((fases_concluidas / total_fases) * 100) if total_fases > 0 else 0
+
+    with open(f"./dados_{req.user_id}.json", "w") as f:
+        json.dump(dados, f, ensure_ascii=False, indent=2)
+
+    return {"ok": True, "progresso_geral": plano["progresso_geral"]}
