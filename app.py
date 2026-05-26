@@ -360,6 +360,154 @@ Inclua: conceitos principais, exemplos práticos e pontos de atenção."""
 
 # CONFIG
 st.set_page_config(page_title="Tutor CEFIS", page_icon="🎓", layout="wide")
+st.markdown("""
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Reset geral */
+html, body, [class*="css"] {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Background */
+.stApp {
+    background: #0a0a0f;
+}
+
+/* Sidebar */
+[data-testid="stSidebar"] {
+    background: #0f0f1a !important;
+    border-right: 1px solid #1e1e2e;
+}
+
+/* Títulos */
+h1 { 
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem !important;
+}
+h2, h3 {
+    color: #e2e8f0 !important;
+    font-weight: 600 !important;
+}
+
+/* Botões primários */
+.stButton > button {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    padding: 0.5rem 1.5rem !important;
+    transition: all 0.2s ease !important;
+}
+.stButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4) !important;
+}
+
+/* Link buttons */
+.stLinkButton > a {
+    background: #1e1e2e !important;
+    color: #a5b4fc !important;
+    border: 1px solid #2e2e4e !important;
+    border-radius: 8px !important;
+    font-weight: 500 !important;
+    transition: all 0.2s !important;
+}
+.stLinkButton > a:hover {
+    background: #6366f1 !important;
+    color: white !important;
+    border-color: #6366f1 !important;
+}
+
+/* Cards de info */
+[data-testid="stInfo"] {
+    background: #1a1a2e !important;
+    border: 1px solid #2e2e4e !important;
+    border-left: 4px solid #6366f1 !important;
+    border-radius: 10px !important;
+    color: #e2e8f0 !important;
+}
+
+/* Success */
+[data-testid="stSuccess"] {
+    background: #0f2a1a !important;
+    border: 1px solid #166534 !important;
+    border-left: 4px solid #22c55e !important;
+    border-radius: 10px !important;
+}
+
+/* Inputs */
+.stTextInput > div > div > input,
+.stTextArea > div > div > textarea {
+    background: #1e1e2e !important;
+    border: 1px solid #2e2e4e !important;
+    border-radius: 10px !important;
+    color: #e2e8f0 !important;
+}
+.stTextInput > div > div > input:focus,
+.stTextArea > div > div > textarea:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 2px rgba(99,102,241,0.2) !important;
+}
+
+/* Selectbox */
+.stSelectbox > div > div {
+    background: #1e1e2e !important;
+    border: 1px solid #2e2e4e !important;
+    border-radius: 10px !important;
+    color: #e2e8f0 !important;
+}
+
+/* Progress bar */
+.stProgress > div > div > div {
+    background: linear-gradient(90deg, #6366f1, #8b5cf6) !important;
+    border-radius: 10px !important;
+}
+
+/* Expander */
+[data-testid="stExpander"] {
+    background: #0f0f1a !important;
+    border: 1px solid #1e1e2e !important;
+    border-radius: 12px !important;
+}
+
+/* Divider */
+hr {
+    border-color: #1e1e2e !important;
+}
+
+/* Caption */
+.stCaption {
+    color: #64748b !important;
+}
+
+/* Chat */
+[data-testid="stChatMessage"] {
+    background: #0f0f1a !important;
+    border: 1px solid #1e1e2e !important;
+    border-radius: 12px !important;
+}
+
+/* Métricas e cards */
+[data-testid="stMetric"] {
+    background: #0f0f1a !important;
+    border: 1px solid #1e1e2e !important;
+    border-radius: 12px !important;
+    padding: 1rem !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0f; }
+::-webkit-scrollbar-thumb { background: #2e2e4e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+</style>
+""", unsafe_allow_html=True)
 
 # SESSION STATE
 for key, default in [

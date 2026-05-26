@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CEFIS — Tutor IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07080f;
+  --surface: #0e1018;
+  --surface2: #161820;
+  --border: #1e2030;
+  --accent: #5b6ef5;
+  --accent2: #8b5cf6;
+  --accent-glow: rgba(91,110,245,0.15);
+  --text: #e8eaf0;
+  --text-muted: #5a5f7a;
+  --text-dim: #8890aa;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--surface2) inset !important;
+  -webkit-text-fill-color: var(--text) !important;
+  border-color: var(--accent) !important;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── SCREENS ── */
+.screen { display: none; min-height: 100vh; }
+.screen.active { display: flex; }
+
+/* ══════════════════════════════
+   LOGIN SCREEN
+══════════════════════════════ */
+#screen-login {
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(91,110,245,0.08) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 30%, rgba(139,92,246,0.06) 0%, transparent 70%);
+}
+
+.login-grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 60px 60px;
+  opacity: 0.3;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+
+.login-card {
+  position: relative;
+  z-index: 1;
+  width: 420px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px;
+  animation: fadeUp 0.6s ease;
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.login-logo-icon {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.login-logo-text {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.login-logo-text span {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.login-subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 36px;
+}
+
+/* ── FORM ELEMENTS ── */
+.field {
+  margin-bottom: 20px;
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.field textarea { resize: none; height: 90px; }
+
+.field select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a5f7a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 40px;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 12px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(91,110,245,0.35);
+}
+
+.btn-primary:active { transform: translateY(0); }
+
+.btn-secondary {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.btn-secondary:hover {
+  background: var(--border);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--text-dim);
+  border: 1px solid var(--border);
+}
+
+.btn-ghost:hover { color: var(--text); border-color: var(--text-dim); }
+
+.btn-danger {
+  background: rgba(239,68,68,0.1);
+  color: var(--danger);
+  border: 1px solid rgba(239,68,68,0.2);
+}
+
+.btn-danger:hover { background: rgba(239,68,68,0.2); }
+
+.btn-sm { padding: 8px 16px; font-size: 13px; border-radius: 8px; }
+.btn-icon { padding: 10px; border-radius: 8px; }
+
+/* ══════════════════════════════
+   MAIN APP LAYOUT
+══════════════════════════════ */
+#screen-app {
+  flex-direction: row;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  gap: 4px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+}
+
+.sidebar-logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.sidebar-logo-text {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.sidebar-user {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.sidebar-user-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.sidebar-user-meta {
+  color: var(--text-muted);
+  font-size: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sidebar-user-meta span {
+  background: var(--border);
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.sidebar-section {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px 12px 4px;
+  margin-top: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text-dim);
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.15s;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+}
+
+.nav-item:hover { background: var(--surface2); color: var(--text); }
+.nav-item.active { background: var(--accent-glow); color: var(--accent); }
+
+.nav-icon { 
+  width: 20px; 
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.nav-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.nav-item {
+  font-size: 15px;
+}
+
+.sidebar-spacer { flex: 1; }
+
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── MAIN CONTENT ── */
+.main {
+  flex: 1;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+.page-header {
+  padding: 32px 40px 0;
+  margin-bottom: 32px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.page-subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.page-body {
+  padding: 0 40px 40px;
+}
+
+/* ══════════════════════════════
+   DASHBOARD / PLANOS
+══════════════════════════════ */
+.plans-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.plan-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: border-color 0.2s;
+  animation: fadeUp 0.4s ease;
+}
+
+.plan-card:hover { border-color: var(--accent); }
+
+.plan-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--accent-glow);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.plan-info { flex: 1; }
+
+.plan-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.plan-meta {
+  color: var(--text-muted);
+  font-size: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.plan-meta span {
+  background: var(--surface2);
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+.plan-actions { display: flex; gap: 8px; }
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+
+.empty-state-icon { font-size: 48px; margin-bottom: 16px; }
+.empty-state h3 { font-size: 18px; color: var(--text-dim); margin-bottom: 8px; }
+.empty-state p { font-size: 14px; margin-bottom: 24px; }
+
+/* ══════════════════════════════
+   ONBOARDING
+══════════════════════════════ */
+#screen-onboarding {
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.onboarding-card {
+  width: 100%;
+  max-width: 680px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px;
+  animation: fadeUp 0.5s ease;
+}
+
+.onboarding-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.step-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.step-dot.active { background: var(--accent); }
+
+.onboarding-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.onboarding-subtitle {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 32px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-grid .field-full { grid-column: 1 / -1; }
+
+.onboarding-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+/* ══════════════════════════════
+   PROGRESS BAR
+══════════════════════════════ */
+#screen-generating {
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.generating-card {
+  text-align: center;
+  max-width: 480px;
+  padding: 20px;
+}
+
+.generating-icon {
+  font-size: 56px;
+  margin-bottom: 24px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.generating-title {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.generating-status {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 32px;
+  min-height: 20px;
+}
+
+.progress-track {
+  width: 100%;
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  border-radius: 3px;
+  transition: width 0.6s ease;
+  width: 0%;
+}
+
+/* ══════════════════════════════
+   PLANO DE ESTUDOS
+══════════════════════════════ */
+.diagnostico {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.diagnostico-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.diagnostico-desc {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 16px;
+  background: var(--accent-glow);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 20px;
+}
+
+.gaps-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.gap-col h4 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gap-item {
+  font-size: 13px;
+  color: var(--text-dim);
+  padding: 8px 12px;
+  background: var(--surface2);
+  border-radius: 8px;
+  margin-bottom: 6px;
+  border: 1px solid var(--border);
+  line-height: 1.5;
+}
+
+.fases { display: flex; flex-direction: column; gap: 16px; }
+
+.fase-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.fase-header {
+  padding: 20px 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: background 0.15s;
+}
+
+.fase-header:hover { background: var(--surface2); }
+
+.fase-number {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.fase-info { flex: 1; }
+
+.fase-title {
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+
+.fase-meta {
+  color: var(--text-muted);
+  font-size: 12px;
+  display: flex;
+  gap: 8px;
+}
+
+.fase-chevron {
+  color: var(--text-muted);
+  transition: transform 0.2s;
+  font-size: 14px;
+}
+
+.fase-card.open .fase-chevron { transform: rotate(180deg); }
+
+.fase-body {
+  display: none;
+  padding: 0 24px 24px;
+  border-top: 1px solid var(--border);
+}
+
+.fase-card.open .fase-body { display: block; }
+
+.modulo {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.modulo:last-child { border-bottom: none; }
+
+.modulo-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.modulo-type {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.modulo-type.cefis {
+  background: rgba(91,110,245,0.15);
+  color: var(--accent);
+  border: 1px solid rgba(91,110,245,0.3);
+}
+
+.modulo-type.ia {
+  background: rgba(139,92,246,0.15);
+  color: #a78bfa;
+  border: 1px solid rgba(139,92,246,0.3);
+}
+
+.modulo-title {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.modulo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  background: var(--accent-glow);
+  padding: 4px 10px;
+  border-radius: 6px;
+  margin-top: 6px;
+  border: 1px solid rgba(91,110,245,0.2);
+  transition: all 0.15s;
+}
+
+.modulo-link:hover { background: rgba(91,110,245,0.25); }
+
+.modulo-content {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.modulo-atividade {
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 8px;
+  border-left: 2px solid var(--accent2);
+}
+
+/* ══════════════════════════════
+   CHAT
+══════════════════════════════ */
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 100px);
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chat-msg {
+  display: flex;
+  gap: 12px;
+  animation: fadeUp 0.3s ease;
+  max-width: 80%;
+}
+
+.chat-msg.user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+}
+
+.chat-msg.user .chat-avatar {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+}
+
+.chat-bubble {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px 18px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.chat-msg.user .chat-bubble {
+  background: var(--accent-glow);
+  border-color: rgba(91,110,245,0.3);
+}
+
+.chat-input-area {
+  padding: 20px 40px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.chat-input-wrap {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  display: flex;
+  align-items: flex-end;
+  padding: 4px;
+  transition: border-color 0.2s;
+}
+
+.chat-input-wrap:focus-within { border-color: var(--accent); }
+
+.chat-input {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 12px 14px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  resize: none;
+  max-height: 120px;
+  min-height: 48px;
+}
+
+.chat-send {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+  margin: 4px;
+}
+
+.chat-send:hover { transform: scale(1.05); }
+.chat-send svg { width: 18px; height: 18px; fill: white; }
+
+/* ══════════════════════════════
+   CATÁLOGO
+══════════════════════════════ */
+#catalog-count {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  width: 120px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a5f7a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+#catalog-count:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.catalog-search .field { flex: 1; margin: 0; }
+.catalog-search .field input { margin: 0; }
+.catalog-search {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  align-items: center;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.course-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.2s;
+  animation: fadeUp 0.3s ease;
+}
+
+.course-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.course-thumb {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  background: var(--surface2);
+  display: block;
+}
+
+.course-body { padding: 16px; }
+
+.course-title {
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.course-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.course-rating {
+  font-size: 12px;
+  color: #fbbf24;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.course-lessons {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.pagination-info {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ══════════════════════════════
+   CONTEÚDO (QUIZ/APOSTILA)
+══════════════════════════════ */
+.content-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px;
+  white-space: pre-wrap;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-dim);
+  animation: fadeUp 0.4s ease;
+}
+
+/* ══════════════════════════════
+   LOADER
+══════════════════════════════ */
+.loader {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.loader span {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: bounce 0.8s ease-in-out infinite;
+}
+
+.loader span:nth-child(2) { animation-delay: 0.15s; }
+.loader span:nth-child(3) { animation-delay: 0.3s; }
+
+/* ══════════════════════════════
+   CRONOGRAMA / RESULTADO
+══════════════════════════════ */
+.cronograma-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.cronograma-box h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cronograma-text {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+.resultado-box {
+  background: rgba(34,197,94,0.05);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 16px;
+  padding: 24px;
+  margin-top: 16px;
+}
+
+.resultado-box h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--success);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.resultado-text {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+/* ══════════════════════════════
+   ANIMATIONS
+══════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+/* ══════════════════════════════
+   TOAST
+══════════════════════════════ */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 14px;
+  z-index: 9999;
+  animation: fadeUp 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.toast.success { border-color: rgba(34,197,94,0.4); }
+.toast.error { border-color: rgba(239,68,68,0.4); }
+</style>
+</head>
+<body>
+
+<!-- ══ LOGIN ══ -->
+<div id="screen-login" class="screen active">
+  <div class="login-bg"></div>
+  <div class="login-grid"></div>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-logo-icon"></div>
+      <div class="login-logo-text">CEFIS <span>AI</span></div>
+    </div>
+    <h1 class="login-title">Bem-vindo ao<br>seu tutor pessoal</h1>
+    <p class="login-subtitle">Entre com sua conta CEFIS para começar</p>
+    <div class="field">
+      <label>E-mail</label>
+      <input type="email" id="login-email" placeholder="seu@email.com" />
+    </div>
+    <div class="field">
+      <label>Senha</label>
+      <input type="password" id="login-password" placeholder="••••••••" />
+    </div>
+    <button class="btn btn-primary" id="btn-login" onclick="doLogin()">
+      Entrar
+    </button>
+  </div>
+</div>
+
+<!-- ══ ONBOARDING ══ -->
+<div id="screen-onboarding" class="screen">
+  <div class="onboarding-card">
+    <div class="onboarding-step">
+      <div class="step-dot active"></div>
+      <div class="step-dot"></div>
+      <div class="step-dot"></div>
+    </div>
+    <h2 class="onboarding-title">Vamos criar seu plano<br>de estudos personalizado</h2>
+    <p class="onboarding-subtitle">Me conta um pouco sobre você para eu montar o melhor caminho de aprendizado</p>
+    <div class="form-grid">
+      <div class="field field-full">
+        <label>Qual é o seu objetivo de aprendizado?</label>
+        <textarea id="ob-objetivo" placeholder="Ex: Passar na OAB, me preparar para concurso fiscal, entender tributário para minha empresa..."></textarea>
+      </div>
+      <div class="field">
+        <label>Sua ocupação atual</label>
+        <input type="text" id="ob-ocupacao" placeholder="Ex: Advogado, Contador, Estudante...">
+      </div>
+      <div class="field">
+        <label>Tempo disponível para estudar</label>
+        <select id="ob-tempo">
+          <option>10 minutos agora</option>
+          <option>30 minutos por dia</option>
+          <option selected>1 hora por dia</option>
+          <option>2 horas por dia</option>
+          <option>Mais de 2 horas por dia</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Experiência na área</label>
+        <select id="ob-experiencia">
+          <option>Nenhuma — estou começando do zero</option>
+          <option>Pouca — já ouvi falar mas não domino</option>
+          <option>Moderada — conheço o básico</option>
+          <option>Avançada — já trabalho ou estudei a fundo</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Seu nível de conhecimento</label>
+        <select id="ob-nivel">
+          <option>Iniciante</option>
+          <option>Intermediário</option>
+          <option>Avançado</option>
+        </select>
+      </div>
+      <div class="field field-full">
+        <label>Como você aprende melhor?</label>
+        <select id="ob-estilo">
+          <option>Visual</option>
+          <option>Auditivo</option>
+          <option>Lendo/Escrevendo</option>
+          <option>Prático</option>
+        </select>
+      </div>
+    </div>
+    <div class="onboarding-actions">
+      <button class="btn btn-ghost" onclick="showScreen('app')">← Voltar</button>
+      <button class="btn btn-primary" style="flex:1" onclick="doGerarPlano()"> Gerar meu plano personalizado</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ GENERATING ══ -->
+<div id="screen-generating" class="screen">
+  <div class="generating-card">
+    <div class="generating-icon"></div>
+    <h2 class="generating-title">Criando seu plano personalizado</h2>
+    <p class="generating-status" id="gen-status">Analisando seu perfil...</p>
+    <div class="progress-track">
+      <div class="progress-fill" id="gen-progress"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ APP ══ -->
+<div id="screen-app" class="screen">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon"></div>
+      <div class="sidebar-logo-text">CEFIS AI</div>
+    </div>
+
+    <div class="sidebar-user" id="sidebar-user">
+      <div class="sidebar-user-name" id="sidebar-name">—</div>
+      <div class="sidebar-user-meta" id="sidebar-meta"></div>
+    </div>
+
+    <div class="sidebar-section">Menu</div>
+    <button class="btn btn-primary" style="width:100%;margin-bottom:4px" onclick="showScreen('app');loadDashboard()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+        <path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+      </svg>
+      Meus Planos
+    </button> 
+    <button class="nav-item active" data-page="page-plano" onclick="navTo('page-plano', this)">
+      <span class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      </span>
+      Plano de Estudos
+    </button>
+    <button class="nav-item" data-page="page-chat" onclick="navTo('page-chat', this)">
+      <span class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </span>
+      Tirar Duvidas
+    </button>
+    <button class="nav-item" data-page="page-quiz" onclick="navTo('page-quiz', this)">
+      <span class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+      </span>
+      Questionario
+    </button>
+    <button class="nav-item" data-page="page-apostila" onclick="navTo('page-apostila', this)">
+      <span class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      </span>
+      Apostila Resumida
+    </button>
+    <button class="nav-item" data-page="page-catalogo" onclick="navTo('page-catalogo', this); loadCatalog()">
+      <span class="nav-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+      </span>
+      Catalogo de Cursos
+    </button>
+
+    <div class="sidebar-spacer"></div>
+
+    <div class="sidebar-bottom">
+      <button class="btn btn-secondary btn-sm" onclick="showScreen('onboarding')"> Novo plano</button>
+      <button class="btn btn-ghost btn-sm" onclick="doLogout()">Sair</button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- DASHBOARD / PLANOS -->
+    <div id="page-dashboard" class="page active">
+      <div class="page-header">
+        <h1 class="page-title" id="dash-greeting">Olá! </h1>
+        <p class="page-subtitle">Seus planos de estudo e cursos disponíveis</p>
+      </div>
+      <div class="page-body">
+        <div id="plans-container"></div>
+        <button class="btn btn-primary" style="max-width:320px" onclick="showScreen('onboarding')">
+           Criar novo plano de estudos
+        </button>
+      </div>
+    </div>
+
+    <!-- PLANO DE ESTUDOS -->
+    <div id="page-plano" class="page">
+      <div class="page-header">
+        <h1 class="page-title"> Plano de Estudos</h1>
+        <p class="page-subtitle" id="plano-subtitle">Seu roteiro personalizado de aprendizado</p>
+      </div>
+      <div class="page-body" id="plano-body">
+        <div class="empty-state">
+          <div class="empty-state-icon"></div>
+          <h3>Nenhum plano ativo</h3>
+          <p>Crie um novo plano de estudos para começar</p>
+          <button class="btn btn-primary" onclick="showScreen('onboarding')"> Criar plano</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHAT -->
+    <div id="page-chat" class="page">
+      <div class="page-header">
+        <h1 class="page-title"> Tirar Dúvidas</h1>
+        <p class="page-subtitle">Respostas baseadas no conteúdo real das aulas da CEFIS</p>
+      </div>
+      <div class="chat-container">
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-input-area">
+          <div class="chat-input-wrap">
+            <textarea class="chat-input" id="chat-input" placeholder="Pergunte sobre qualquer conteúdo da CEFIS..." rows="1"
+              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat()}"
+              oninput="this.style.height='auto';this.style.height=this.scrollHeight+'px'"></textarea>
+          </div>
+          <button class="chat-send" onclick="sendChat()">
+            <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="page-quiz" class="page">
+      <div class="page-header">
+        <h1 class="page-title"> Questionário</h1>
+        <p class="page-subtitle">Gerado com base no conteúdo real das aulas da CEFIS</p>
+      </div>
+      <div class="page-body">
+        <div class="field" style="max-width:600px;margin-bottom:16px">
+          <label>Sobre qual tema quer ser testado?</label>
+          <input type="text" id="quiz-tema" placeholder="Ex: direito tributário, princípios constitucionais...">
+        </div>
+        <button class="btn btn-primary" style="max-width:240px;margin-bottom:24px" onclick="gerarConteudo('quiz')">
+          Gerar Questionário
+        </button>
+        <div id="quiz-result"></div>
+      </div>
+    </div>
+
+    <!-- APOSTILA -->
+    <div id="page-apostila" class="page">
+      <div class="page-header">
+        <h1 class="page-title"> Apostila Resumida</h1>
+        <p class="page-subtitle">Gerada com base no conteúdo real das aulas da CEFIS</p>
+      </div>
+      <div class="page-body">
+        <div class="field" style="max-width:600px;margin-bottom:16px">
+          <label>Sobre qual tema quer a apostila?</label>
+          <input type="text" id="apostila-tema" placeholder="Ex: direito tributário, princípios constitucionais...">
+        </div>
+        <button class="btn btn-primary" style="max-width:240px;margin-bottom:24px" onclick="gerarConteudo('apostila')">
+          Gerar Apostila
+        </button>
+        <div id="apostila-result"></div>
+      </div>
+    </div>
+
+    <!-- CATÁLOGO -->
+    <div id="page-catalogo" class="page">
+      <div class="page-header">
+        <h1 class="page-title"> Catálogo de Cursos</h1>
+        <p class="page-subtitle" id="catalog-info">Explore todos os cursos disponíveis na CEFIS</p>
+      </div>
+      <div class="page-body">
+        <div class="catalog-search">
+          <input type="text" id="catalog-search" placeholder="Buscar curso..." oninput="debounceSearch()" style="flex:1;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;color:var(--text);font-family:var(--font-body);font-size:15px;outline:none;">
+          <select id="catalog-count" onchange="catalogPage=1;loadCatalog()">
+            <option value="12">12 / pág</option>
+            <option value="24" selected>24 / pág</option>
+            <option value="48">48 / pág</option>
+          </select>
+        </div> 
+        <div id="courses-grid" class="courses-grid"></div>
+        <div class="pagination" id="catalog-pagination"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ══════════════════════════════
+// STATE
+// ══════════════════════════════
+let state = {
+  user: null,
+  apiKey: null,
+  planoAtivo: null,
+  onboarding: null,
+  chatHistory: []
+}
+
+let catalogPage = 1
+let searchTimer = null
+
+// ══════════════════════════════
+// UTILS
+// ══════════════════════════════
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'))
+  document.getElementById('screen-' + name).classList.add('active')
+}
+async function carregarPlanosInline() {
+  const body = document.getElementById('plano-body')
+  body.innerHTML = '<div style="color:var(--text-muted);padding:20px 0">Carregando seus planos...</div>'
+
+  try {
+    const data = await api(`/api/planos/${state.user.id}`)
+    const planos = data.planos || []
+
+    if (planos.length === 0) {
+      body.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="opacity:0.3">
+              <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+          </div>
+          <h3>Nenhum plano ainda</h3>
+          <p>Crie seu primeiro plano de estudos personalizado</p>
+          <button class="btn btn-primary" onclick="showScreen('onboarding')">Criar plano</button>
+        </div>`
+      return
+    }
+
+    body.innerHTML = `
+      <div style="margin-bottom:24px">
+        <h3 style="font-family:var(--font-display);font-size:18px;margin-bottom:16px">Selecione um plano para abrir</h3>
+        <div class="plans-grid">
+          ${planos.map(p => `
+            <div class="plan-card" style="cursor:pointer" onclick="abrirPlano('${p.id}')">
+              <div class="plan-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                  <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                </svg>
+              </div>
+              <div class="plan-info">
+                <div class="plan-title">${p.titulo}</div>
+                <div class="plan-meta">
+                  <span>${p.created_at}</span>
+                  <span>${p.onboarding.nivel}</span>
+                  <span>${p.onboarding.estilo}</span>
+                </div>
+              </div>
+              <div class="plan-actions">
+                <button class="btn btn-secondary btn-sm">Abrir</button>
+                <button class="btn btn-danger btn-icon btn-sm" onclick="event.stopPropagation();deletarPlano('${p.id}')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6l-1 14H6L5 6m5 0V4h4v2"/>
+                  </svg>
+                </button>
+              </div>
+            </div>`).join('')}
+        </div>
+        <button class="btn btn-primary" style="max-width:280px;margin-top:16px" onclick="showScreen('onboarding')">Criar novo plano</button>
+      </div>`
+  } catch(e) {
+    body.innerHTML = '<div style="color:var(--danger)">Erro ao carregar planos.</div>'
+  }
+}
+
+function navTo(pageId, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'))
+  document.getElementById(pageId).classList.add('active')
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'))
+  if (el) el.classList.add('active')
+  
+  if (pageId === 'page-plano') {
+    if (state.planoAtivo) {
+      renderPlano()
+    } else {
+      // mostra planos salvos inline
+      carregarPlanosInline()
+    }
+  }
+}
+
+function toast(msg, type = 'success') {
+  const t = document.createElement('div')
+  t.className = `toast ${type}`
+  t.innerHTML = `<span>${type === 'success' ? '' : ''}</span> ${msg}`
+  document.body.appendChild(t)
+  setTimeout(() => t.remove(), 3000)
+}
+
+function setProgress(pct, msg) {
+  document.getElementById('gen-progress').style.width = pct + '%'
+  document.getElementById('gen-status').textContent = msg
+}
+
+async function api(path, body = null) {
+  const opts = { headers: { 'Content-Type': 'application/json' } }
+  if (body) { opts.method = 'POST'; opts.body = JSON.stringify(body) }
+  const r = await fetch(path, opts)
+  if (!r.ok) throw new Error(await r.text())
+  return r.json()
+}
+
+// ══════════════════════════════
+// AUTH
+// ══════════════════════════════
+async function doLogin() {
+  const email = document.getElementById('login-email').value
+  const password = document.getElementById('login-password').value
+  if (!email || !password) { toast('Preencha email e senha', 'error'); return }
+
+  const btn = document.getElementById('btn-login')
+  btn.textContent = 'Entrando...'
+  btn.disabled = true
+
+  try {
+    const data = await api('/api/login', { email, password })
+    state.user = data.user
+    state.apiKey = data.key
+    // restaura plano do localStorage
+    const planoSalvo = localStorage.getItem('planoAtivo')
+    const onboardingSalvo = localStorage.getItem('onboardingAtivo')
+    if (planoSalvo) state.planoAtivo = JSON.parse(planoSalvo)
+    if (onboardingSalvo) state.onboarding = JSON.parse(onboardingSalvo)
+    updateSidebar()
+    showScreen('app')
+    loadDashboard()
+  } catch(e) {
+    toast('E-mail ou senha incorretos', 'error')
+  } finally {
+    btn.textContent = 'Entrar'
+    btn.disabled = false
+  }
+}
+
+document.getElementById('login-password').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin()
+})
+
+function doLogout() {
+  state = { user: null, apiKey: null, planoAtivo: null, onboarding: null, chatHistory: [] }
+  showScreen('login')
+}
+
+function updateSidebar() {
+  const u = state.user
+  document.getElementById('sidebar-name').textContent = u.name || u.first_name
+  const meta = document.getElementById('sidebar-meta')
+  if (state.onboarding) {
+    meta.innerHTML = `<span>${state.onboarding.nivel}</span><span>${state.onboarding.estilo}</span>`
+  } else {
+    meta.innerHTML = u.is_premium ? '<span>Premium</span>' : ''
+  }
+}
+
+// ══════════════════════════════
+// DASHBOARD
+// ══════════════════════════════
+async function loadDashboard() {
+  navTo('page-dashboard', null)
+  document.getElementById('dash-greeting').textContent = `Olá, ${state.user?.first_name || 'Aluno'}!`
+  const container = document.getElementById('plans-container')
+  container.innerHTML = '<div style="color:var(--text-muted);font-size:14px;padding:20px 0">Carregando...</div>'
+
+  try {
+    const data = await api(`/api/planos/${state.user.id}`)
+    const planos = data.planos || []
+
+    if (planos.length === 0) {
+      container.innerHTML = `
+        <div class="empty-state" style="padding:40px 0">
+          <div class="empty-state-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48" style="opacity:0.3">
+              <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+          </div>
+          <h3>Nenhum plano ainda</h3>
+          <p>Crie seu primeiro plano de estudos personalizado</p>
+        </div>`
+      return
+    }
+
+    container.innerHTML = '<div class="plans-grid">' +
+      planos.map(p => `
+        <div class="plan-card">
+          <div class="plan-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+              <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+          </div>
+          <div class="plan-info">
+            <div class="plan-title">${p.titulo}</div>
+            <div class="plan-meta">
+              <span>${p.created_at}</span>
+              <span>${p.onboarding.nivel}</span>
+              <span>${p.onboarding.estilo}</span>
+            </div>
+          </div>
+          <div class="plan-actions">
+            <button class="btn btn-secondary btn-sm" onclick="abrirPlano('${p.id}')">Abrir</button>
+            <button class="btn btn-danger btn-icon btn-sm" onclick="deletarPlano('${p.id}')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6l-1 14H6L5 6m5 0V4h4v2"/>
+              </svg>
+            </button>
+          </div>
+        </div>`).join('') +
+    '</div>'
+  } catch(e) {
+    container.innerHTML = '<div style="color:var(--danger)">Erro ao carregar planos</div>'
+  }
+}
+
+async function abrirPlano(id) {
+  const data = await api(`/api/planos/${state.user.id}`)
+  const p = data.planos.find(x => x.id === id)
+  if (!p) return
+  state.planoAtivo = p.plano
+  state.onboarding = p.onboarding
+  updateSidebar()
+  renderPlano()
+  showScreen('app')
+  navTo('page-plano', document.querySelector('[data-page="page-plano"]'))
+  // persiste no localStorage
+  localStorage.setItem('planoAtivo', JSON.stringify(p.plano))
+  localStorage.setItem('onboardingAtivo', JSON.stringify(p.onboarding))
+}
+
+async function deletarPlano(id) {
+  if (!confirm('Deletar este plano?')) return
+  await api('/api/planos/deletar', { user_id: state.user.id, plano_id: id })
+  toast('Plano deletado')
+  loadDashboard()
+}
+
+// ══════════════════════════════
+// ONBOARDING + GERAR PLANO
+// ══════════════════════════════
+async function doGerarPlano() {
+  const objetivo = document.getElementById('ob-objetivo').value.trim()
+  const ocupacao = document.getElementById('ob-ocupacao').value.trim()
+  if (!objetivo || !ocupacao) { toast('Preencha objetivo e ocupação', 'error'); return }
+
+  showScreen('generating')
+  setProgress(10, 'Analisando seu perfil...')
+
+  const steps = [
+    [25, 'Buscando cursos relevantes na CEFIS...'],
+    [45, 'Identificando lacunas de conhecimento...'],
+    [65, 'Montando sequência de estudos...'],
+    [80, 'Gerando atividades personalizadas...'],
+  ]
+
+  let i = 0
+  const interval = setInterval(() => {
+    if (i < steps.length) {
+      setProgress(steps[i][0], steps[i][1])
+      i++
+    }
+  }, 1200)
+
+  try {
+    const data = await api('/api/gerar-plano', {
+      user_id: state.user.id,
+      user_name: state.user.name,
+      ocupacao,
+      experiencia: document.getElementById('ob-experiencia').value,
+      nivel: document.getElementById('ob-nivel').value,
+      objetivo,
+      tempo: document.getElementById('ob-tempo').value,
+      estilo: document.getElementById('ob-estilo').value
+    })
+
+    clearInterval(interval)
+    setProgress(100, ' Plano pronto!')
+
+    state.planoAtivo = data.plano
+    state.onboarding = {
+      ocupacao,
+      experiencia: document.getElementById('ob-experiencia').value,
+      nivel: document.getElementById('ob-nivel').value,
+      objetivo,
+      tempo: document.getElementById('ob-tempo').value,
+      estilo: document.getElementById('ob-estilo').value
+    }
+
+    // preenche temas padrão
+    document.getElementById('quiz-tema').value = objetivo
+    document.getElementById('apostila-tema').value = objetivo
+
+    updateSidebar()
+
+    setTimeout(() => {
+      showScreen('app')
+      renderPlano()
+      navTo('page-plano', document.querySelector('[data-page="page-plano"]'))
+    }, 800)
+
+  } catch(e) {
+    clearInterval(interval)
+    toast('Erro ao gerar plano. Tente novamente.', 'error')
+    showScreen('onboarding')
+  }
+}
+
+// ══════════════════════════════
+// RENDERIZAR PLANO
+// ══════════════════════════════
+function renderPlano() {
+  const plano = state.planoAtivo
+  if (!plano) return
+  const ob = state.onboarding
+
+  if (ob) {
+    document.getElementById('page-plano').querySelector('.page-title').innerHTML =
+      `Plano de Estudos <span style="color:var(--text-muted);font-size:18px;font-weight:400">— 
+        <span id="plano-nome-display" onclick="editarNomePlano()" style="cursor:pointer;border-bottom:1px dashed var(--border)" title="Clique para editar">
+          ${ob.objetivo}
+        </span>
+      </span>`
+  }
+
+  const body = document.getElementById('plano-body')
+  const diag = plano.diagnostico || {}
+  const criticos = (diag.gaps_criticos || []).map(g => `<div class="gap-item">${g}</div>`).join('')
+  const complementares = (diag.gaps_complementares || []).map(g => `<div class="gap-item">${g}</div>`).join('')
+
+  const fasesHtml = (plano.fases || []).map(fase => {
+    const modulos = (fase.modulos || []).map(mod => {
+      const tipo = mod.tipo === 'cefis' ? 'CEFIS' : 'IA'
+      const tipoClass = mod.tipo === 'cefis' ? 'cefis' : 'ia'
+      let link = ''
+      try {
+        const id = parseInt(mod.curso_id)
+        if (!isNaN(id) && mod.tipo === 'cefis') {
+          link = `<a class="modulo-link" href="https://cefis.com.br/portal/cursos/${id}" target="_blank">Acessar curso na CEFIS</a>`
+        }
+      } catch(e) {}
+      return `
+        <div class="modulo">
+          <div class="modulo-header">
+            <span class="modulo-type ${tipoClass}">${tipo}</span>
+            <div>
+              <div class="modulo-title">${mod.titulo}</div>
+              ${link}
+            </div>
+          </div>
+          <div class="modulo-content">${mod.conteudo}</div>
+          ${mod.atividade ? `<div class="modulo-atividade">${mod.atividade}</div>` : ''}
+        </div>`
+    }).join('')
+
+    return `
+      <div class="fase-card open">
+        <div class="fase-header" onclick="toggleFase(this)">
+          <div class="fase-number">${fase.numero}</div>
+          <div class="fase-info">
+            <div class="fase-title">${fase.titulo}</div>
+            <div class="fase-meta">
+              <span>${fase.duracao}</span>
+              <span>${fase.objetivo?.substring(0,60)}...</span>
+            </div>
+          </div>
+          <div class="fase-chevron">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </div>
+        </div>
+        <div class="fase-body">${modulos}</div>
+      </div>`
+  }).join('')
+
+  const crono = plano.cronograma ? `
+    <div class="cronograma-box">
+      <h3>Cronograma</h3>
+      <div class="cronograma-text">${plano.cronograma}</div>
+    </div>` : ''
+
+  const resultado = plano.resultado_esperado ? `
+    <div class="resultado-box">
+      <h3>Resultado Esperado</h3>
+      <div class="resultado-text">${plano.resultado_esperado}</div>
+    </div>` : ''
+
+  body.innerHTML = `
+    <div class="diagnostico">
+      <div class="diagnostico-title">Diagnostico de Lacunas</div>
+      <div class="diagnostico-desc">${diag.ja_sabe || ''}</div>
+      <div class="gaps-grid">
+        <div class="gap-col">
+          <h4>Gaps Criticos</h4>
+          ${criticos}
+        </div>
+        <div class="gap-col">
+          <h4>Gaps Complementares</h4>
+          ${complementares}
+        </div>
+      </div>
+    </div>
+    <div class="fases">${fasesHtml}</div>
+    ${crono}
+    ${resultado}
+  `
+}
+
+function editarNomePlano() {
+  const display = document.getElementById('plano-nome-display')
+  if (!display) return
+  const nomeAtual = display.textContent.trim()
+  const input = document.createElement('input')
+  input.value = nomeAtual
+  input.style.cssText = 'background:var(--surface2);border:1px solid var(--accent);border-radius:6px;padding:2px 8px;color:var(--text);font-size:18px;outline:none;width:300px'
+  display.replaceWith(input)
+  input.focus()
+  input.select()
+
+  function salvar() {
+    const novo = input.value.trim() || nomeAtual
+    if (state.onboarding) state.onboarding.objetivo = novo
+    localStorage.setItem('onboardingAtivo', JSON.stringify(state.onboarding))
+    renderPlano()
+    toast('Nome atualizado')
+  }
+
+  input.addEventListener('blur', salvar)
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') input.blur() })
+}
+function toggleFase(header) {
+  header.parentElement.classList.toggle('open')
+}
+
+// ══════════════════════════════
+// CHAT
+// ══════════════════════════════
+async function sendChat() {
+  const input = document.getElementById('chat-input')
+  const text = input.value.trim()
+  if (!text) return
+
+  const ob = state.onboarding || {}
+  input.value = ''
+  input.style.height = 'auto'
+
+  appendMsg('user', text)
+  state.chatHistory.push({ role: 'user', content: text })
+
+  const loadingId = appendMsg('assistant', '<div class="loader"><span></span><span></span><span></span></div>')
+
+  try {
+    const data = await api('/api/chat', {
+      pergunta: text,
+      historico: state.chatHistory.slice(0, -1),
+      user_name: state.user?.name || 'Aluno',
+      nivel: ob.nivel || 'Intermediário',
+      estilo: ob.estilo || 'Lendo/Escrevendo',
+      objetivo: ob.objetivo || ''
+    })
+
+    document.getElementById(loadingId).innerHTML = data.resposta
+    state.chatHistory.push({ role: 'assistant', content: data.resposta })
+  } catch(e) {
+    document.getElementById(loadingId).innerHTML = 'Erro ao buscar resposta.'
+  }
+}
+
+function appendMsg(role, content) {
+  const id = 'msg-' + Date.now()
+  const msgs = document.getElementById('chat-messages')
+  const div = document.createElement('div')
+  div.className = `chat-msg ${role}`
+  div.innerHTML = `
+    <div class="chat-avatar">${role === 'user' ? '' : ''}</div>
+    <div class="chat-bubble" id="${id}">${content}</div>`
+  msgs.appendChild(div)
+  msgs.scrollTop = msgs.scrollHeight
+  return id
+}
+
+// ══════════════════════════════
+// CONTEÚDO (QUIZ / APOSTILA)
+// ══════════════════════════════
+async function gerarConteudo(tipo) {
+  const ob = state.onboarding || {}
+  const tema = document.getElementById(tipo === 'quiz' ? 'quiz-tema' : 'apostila-tema').value.trim()
+  const resultDiv = document.getElementById(tipo === 'quiz' ? 'quiz-result' : 'apostila-result')
+
+  if (!tema) { toast('Informe o tema', 'error'); return }
+
+  resultDiv.innerHTML = '<div style="color:var(--text-muted);padding:20px 0">Gerando <div class="loader" style="display:inline-flex"><span></span><span></span><span></span></div></div>'
+
+  try {
+    const data = await api('/api/conteudo', {
+      tema,
+      nivel: ob.nivel || 'Intermediário',
+      estilo: ob.estilo || 'Lendo/Escrevendo',
+      tipo
+    })
+    resultDiv.innerHTML = `<div class="content-box">${data.conteudo}</div>`
+  } catch(e) {
+    resultDiv.innerHTML = '<div style="color:var(--danger)">Erro ao gerar conteúdo.</div>'
+  }
+}
+
+// ══════════════════════════════
+// CATÁLOGO
+// ══════════════════════════════
+async function loadCatalog() {
+  const search = document.getElementById('catalog-search')?.value || ''
+  const count = parseInt(document.getElementById('catalog-count')?.value || 24)
+  const grid = document.getElementById('courses-grid')
+  const pagination = document.getElementById('catalog-pagination')
+
+  grid.innerHTML = '<div style="color:var(--text-muted);font-size:14px;grid-column:1/-1">Carregando...</div>'
+
+  try {
+    const data = await fetch(`/api/cursos?search=${encodeURIComponent(search)}&page=${catalogPage}&count=${count}`).then(r => r.json())
+    const cursos = data.data || []
+    const pag = data.pagination || {}
+    const total = pag.totalItems || 0
+    const lastPage = pag.lastPage || 1
+
+    document.getElementById('catalog-info').textContent = `${total} cursos disponíveis · Página ${catalogPage} de ${lastPage}`
+
+    grid.innerHTML = cursos.map(c => `
+      <div class="course-card">
+        <img class="course-thumb" src="${c.banner || ''}" alt="${c.title}" onerror="this.style.display='none'">
+        <div class="course-body">
+          <div class="course-title">${c.title}</div>
+          <div class="course-meta">
+            <div class="course-rating"> ${(c.averageRating || 0).toFixed(1)}</div>
+            <div class="course-lessons">${c.lessonCount || 0} aulas</div>
+          </div>
+          <a href="https://cefis.com.br/portal/cursos/${c.id}" target="_blank" class="btn btn-secondary btn-sm" style="width:100%">▶ Acessar curso</a>
+        </div>
+      </div>`).join('')
+
+    pagination.innerHTML = `
+      ${catalogPage > 1 ? `<button class="btn btn-ghost btn-sm" onclick="catalogPage--;loadCatalog()">← Anterior</button>` : ''}
+      <span class="pagination-info">Página ${catalogPage} de ${lastPage}</span>
+      ${catalogPage < lastPage ? `<button class="btn btn-ghost btn-sm" onclick="catalogPage++;loadCatalog()">Próxima →</button>` : ''}
+    `
+  } catch(e) {
+    grid.innerHTML = '<div style="color:var(--danger)">Erro ao carregar cursos.</div>'
+  }
+}
+
+function debounceSearch() {
+  clearTimeout(searchTimer)
+  searchTimer = setTimeout(() => { catalogPage = 1; loadCatalog() }, 400)
+}
+</script>
+</body>
+</html>
